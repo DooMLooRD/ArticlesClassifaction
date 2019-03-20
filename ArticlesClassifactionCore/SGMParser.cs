@@ -11,7 +11,7 @@ namespace ArticlesClassifactionCore
 {
     public class SgmParser
     {
-        public List<DataModel> ReadAllSgmFromDirectory()
+        public List<ArticleData> ReadAllSgmFromDirectory()
         {
             DirectoryInfo d = new DirectoryInfo("../../../Data");
             FileInfo[] files = d.GetFiles("*.sgm");
@@ -20,7 +20,7 @@ namespace ArticlesClassifactionCore
             {
                 filePaths.Add(file.FullName);
             }
-            List<DataModel> models = new List<DataModel>();
+            List<ArticleData> models = new List<ArticleData>();
             foreach (string filePath in filePaths)
             {
                 models.AddRange(FromSgml(filePath));
@@ -28,9 +28,9 @@ namespace ArticlesClassifactionCore
 
             return models;
         }
-        public List<DataModel> FromSgml(string path)
+        public List<ArticleData> FromSgml(string path)
         {
-            List<DataModel> models = new List<DataModel>();
+            List<ArticleData> models = new List<ArticleData>();
             HtmlDocument doc = new HtmlDocument();
             doc.Load(path);
 
@@ -38,13 +38,13 @@ namespace ArticlesClassifactionCore
 
             foreach (var sgmlNode in pages)
             {
-                DataModel model = new DataModel();
+                ArticleData model = new ArticleData();
 
-                var categories = sgmlNode.Descendants("D");
+                var categories = sgmlNode.Descendants("D").Select(t=>t.ParentNode).Distinct();
 
                 foreach (var category in categories)
                 {
-                    model.Tags[category.ParentNode.Name] = category.ChildNodes.Select(n => n.InnerText).ToList();
+                    model.Tags[category.Name] = category.ChildNodes.Select(n => n.InnerText).ToList();
                 }
 
                 string date = sgmlNode.Descendants("DATE")?.FirstOrDefault()?.InnerText;
