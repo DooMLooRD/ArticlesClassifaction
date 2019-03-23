@@ -49,18 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleData.cs" />
-    <Compile Include="FeaturesExtractor.cs" />
+    <Compile Include="Data\ArticleData.cs" />
+    <Compile Include="Data\DataUtils.cs" />
+    <Compile Include="Features\FeaturesVectorService.cs" />
+    <Compile Include="Features\KeyWordsExtractor.cs" />
+    <Compile Include="Features\TrainingService.cs" />
     <Compile Include="KnnArticle.cs" />
+    <Compile Include="Metrics\EuclideanMetric.cs" />
+    <Compile Include="Metrics\IMetric.cs" />
+    <Compile Include="PreprocessedArticle.cs" />
+    <Compile Include="KnnService.cs" />
+    <Compile Include="SimilarityFunctions\IsEqualOrNot.cs" />
+    <Compile Include="SimilarityFunctions\ISimilarityFunction.cs" />
     <Compile Include="TextPreProcessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SGMParser.cs" />
+    <Compile Include="Data\SGMParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

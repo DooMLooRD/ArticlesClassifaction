@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArticlesClassifactionCore
+namespace ArticlesClassifactionCore.Data
 {
     public class ArticleData
     {

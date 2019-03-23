@@ -1,0 +1,64 @@
+﻿<Window x:Class="ArticlesClassificationView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArticlesClassificationView"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <TextBlock Text="Wybór danych" FontSize="15" FontWeight="Bold"></TextBlock>
+            <Button Content="Załaduj pliki" Command="{Binding LoadFilesCommand}"/>
+            <TextBlock Text="Wybierz kategorię:"/>
+            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <TextBlock Text="Wybierz etykiety:"/>
+            <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <ListBox ItemsSource="{Binding Tags}" MinHeight="200" MaxHeight="200">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="Filtruj" Command="{Binding FilterDataCommand}"></Button>
+            <TextBlock Text="Preprocessing" FontSize="15" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="Podział na treningowe/testowe (%)"></TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Treningowe"/>
+                    <TextBox  Text="{Binding SliderValue}"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Testowe"/>
+                    <TextBox IsReadOnly="True" Text="{Binding SliderValue, Converter={StaticResource FillValue}}"/>
+                </StackPanel>
+            </Grid>
+            <Slider Value="{Binding SliderValue}" Maximum="100" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Button Content="Załaduj Stop Listę" Command="{Binding LoadStopListCommand}"/>
+            <Button Content="Utwórz dane"  Command="{Binding CreateDataCommand}"></Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Button Content="Trenuj" Command="{Binding TrainCommand}"/>
+            <Button Content="Klasyfikuj" Command="{Binding ClassifyCommand}"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

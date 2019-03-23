@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Collections.Specialized;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using HtmlAgilityPack;
 
-namespace ArticlesClassifactionCore
+namespace ArticlesClassifactionCore.Data
 {
     public class SgmParser
     {

@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ArticlesClassifactionCore
+namespace ArticlesClassifactionCore.Features
 {
-    public class FeaturesExtractor
+    public class KeyWordsExtractor
     {
-        public List<KnnArticle> Articles { get; set; }
+        public List<PreprocessedArticle> Articles { get; set; }
         public Dictionary<string,int> DocumentFrequency { get; set; }
 
-        public FeaturesExtractor(List<KnnArticle> articles)
+        public KeyWordsExtractor(List<PreprocessedArticle> articles)
         {
             Articles = articles;
             CalculateDocumentFrequency();
         }
 
-        public Dictionary<string, double> CalculateTFIDF(KnnArticle article)
+        public Dictionary<string, double> CalculateTFIDF(PreprocessedArticle article)
         {
             Dictionary<string,double> dictionary=new Dictionary<string, double>();
             
@@ -34,7 +32,7 @@ namespace ArticlesClassifactionCore
         {
             return Math.Log(Articles.Count / (double)DocumentFrequency[word]);
         }
-        private Dictionary<string, double> TermFrequency(KnnArticle article)
+        private Dictionary<string, double> TermFrequency(PreprocessedArticle article)
         {
             Dictionary<string, double> distinctWords = new Dictionary<string, double>();
             foreach (string word in article.Words)
@@ -61,7 +59,7 @@ namespace ArticlesClassifactionCore
                 dictionary.Add(word,0);
             }
 
-            foreach (KnnArticle knnArticle in Articles)
+            foreach (PreprocessedArticle knnArticle in Articles)
             {
                 foreach (string s in knnArticle.Words.Distinct())
                 {
