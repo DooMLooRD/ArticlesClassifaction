@@ -26,10 +26,11 @@ namespace ArticlesClassifactionCore.Features
         }
         public void Train()
         {
+            KeyWordsExtractor extractor = new KeyWordsExtractor(Articles);
+
             foreach (string tag in Tags)
             {
                 List<PreprocessedArticle> articles = Articles.Where(t => t.Label == tag).ToList();
-                KeyWordsExtractor extractor = new KeyWordsExtractor(articles);
                 List<(string, double)> tfidf = new List<(string, double)>();
                 foreach (PreprocessedArticle article in articles)
                 {
@@ -37,7 +38,7 @@ namespace ArticlesClassifactionCore.Features
                 }
                 var keyWords = tfidf.OrderByDescending(n => n.Item2)
                     .ToList();
-                KeyWords[tag] = keyWords.Select(n => n.Item1).Distinct().Take(100).ToList();
+                KeyWords[tag] = keyWords.Select(n => n.Item1).Distinct().Take(10).ToList();
             }
         }
     }
