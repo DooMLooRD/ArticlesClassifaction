@@ -26,19 +26,37 @@ namespace ArticlesClassifactionCore.Features
         }
         public void Train()
         {
-            KeyWordsExtractor extractor = new KeyWordsExtractor(Articles);
-
+            List<string> allWords = new List<string>();
+            Dictionary<string, List<string>> keyWords = new Dictionary<string, List<string>>();
             foreach (string tag in Tags)
             {
+
                 List<PreprocessedArticle> articles = Articles.Where(t => t.Label == tag).ToList();
+                KeyWordsExtractor extractor = new KeyWordsExtractor(articles);
+
                 List<(string, double)> tfidf = new List<(string, double)>();
+                List<(string, int)> df = new List<(string, int)>();
                 foreach (PreprocessedArticle article in articles)
                 {
                     tfidf.AddRange(extractor.CalculateTFIDF(article).Select(t => (t.Key, t.Value)));
                 }
-                var keyWords = tfidf.OrderByDescending(n => n.Item2)
-                    .ToList();
-                KeyWords[tag] = keyWords.Select(n => n.Item1).Distinct().Take(10).ToList();
+                df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, t.Value)));
+                keyWords.Add(tag, df.OrderByDescending(n => n.Item2).Select(t => t.Item1).ToList());
+                allWords.AddRange(keyWords[tag]);
+            }
+
+            foreach (string tag in Tags)
+            {
+                var notInTag = new List<string>();
+                foreach (string s in Tags)
+                {
+                    if (s != tag)
+                    {
+                        notInTag.AddRange(keyWords[s].Take((int)(keyWords[s].Count*0.2)));
+                    }
+                }
+                var distinctInTag = keyWords[tag].Except(notInTag).ToList();
+                KeyWords[tag] = distinctInTag.Take(20).ToList();
             }
         }
     }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using ArticlesClassifactionCore;
@@ -15,12 +16,14 @@ using ArticlesClassifactionCore.Metrics;
 using ArticlesClassifactionCore.SimilarityFunctions;
 using ArticlesClassificationView.ViewModels.Base;
 using Microsoft.Win32;
+using Parago.Windows;
 
 namespace ArticlesClassificationView.ViewModels
 {
     public class MainWindowVM : BaseViewModel
     {
         private string _filter;
+        private Window _owner;
         public List<string> Categories { get; set; }
         public string SelectedCategory { get; set; }
         public List<ArticleData> Articles { get; set; }
@@ -34,6 +37,10 @@ namespace ArticlesClassificationView.ViewModels
         public TrainingService TrainingService { get; set; }
         public KnnService KnnService { get; set; }
         public List<string> SelectedTags { get; set; }
+        public List<IMetric> Metrics { get; set; }
+        public IMetric SelectedMetric { get; set; }
+        public List<ISimilarityFunction> SimilarityFunctions { get; set; }
+        public ISimilarityFunction SelectedSimilarityFunction { get; set; }
 
         #region Commands
         public ICommand LoadFilesCommand { get; set; }
@@ -56,8 +63,9 @@ namespace ArticlesClassificationView.ViewModels
             }
         }
 
-        public MainWindowVM()
+        public MainWindowVM(Window owner)
         {
+            _owner = owner;
             SliderValue = 60;
             Tags = new ObservableCollection<TagVM>();
             Categories = new List<string>();
@@ -70,6 +78,10 @@ namespace ArticlesClassificationView.ViewModels
             LoadStopListCommand = new RelayCommand(LoadStopList);
             TrainCommand = new RelayCommand(Train);
             ClassifyCommand = new RelayCommand(Classify);
+            Metrics = new List<IMetric> { new EuclideanMetric(), new ChebyshevMetric(), new TaxicabMetric() };
+            SelectedMetric = Metrics[0];
+            SimilarityFunctions = new List<ISimilarityFunction> { new BinaryFunction(), new NGramFunction(4) };
+            SelectedSimilarityFunction = SimilarityFunctions[0];
         }
 
         public void Train()
@@ -80,11 +92,11 @@ namespace ArticlesClassificationView.ViewModels
 
         public void Classify()
         {
-            KnnService = new KnnService(new FeaturesVectorService(TrainingService.KeyWords, new IsEqualOrNot()), new EuclideanMetric(), 5);
+            KnnService = new KnnService(new FeaturesVectorService(TrainingService.KeyWords, SelectedSimilarityFunction), SelectedMetric, 10);
             List<PreprocessedArticle> articles = new List<PreprocessedArticle>();
             foreach (var pro in SelectedTags)
             {
-                var temp = TestData.Where(t => t.Label == pro).Take(5).ToList();
+                var temp = TestData.Where(t => t.Label == pro).Take(20).ToList();
                 articles.AddRange(temp);
                 foreach (PreprocessedArticle article in temp)
                 {
@@ -92,12 +104,22 @@ namespace ArticlesClassificationView.ViewModels
                 }
             }
             KnnService.InitKnn(articles);
-            int count = 0;
+            Dictionary<string, (int, int)> results = new Dictionary<string, (int, int)>();
+            foreach (var tag in SelectedTags)
+            {
+                results.Add(tag, (0, 0));
+            }
+
             foreach (PreprocessedArticle preprocessedArticle in TestData)
             {
                 var test = KnnService.ClassifyArticle(preprocessedArticle);
-                if (preprocessedArticle.Label == test)
-                    count++;
+                foreach (string key in SelectedTags)
+                {
+                    if (preprocessedArticle.Label == key)
+                        results[key] = (results[key].Item1 + 1, results[key].Item2);
+                    if (test == key && test == preprocessedArticle.Label)
+                        results[key] = (results[key].Item1, results[key].Item2 + 1);
+                }
             }
         }
         public void LoadStopList()
@@ -110,10 +132,24 @@ namespace ArticlesClassificationView.ViewModels
                 StopList = File.ReadAllLines(openFileDialog.FileName).ToList();
             }
         }
-        public void CreateData()
+        public async void CreateData()
         {
-            TrainingData = FilteredArticles.Take((int)(FilteredArticles.Count * SliderValue / 100.0)).Select(t => new PreprocessedArticle(t, t.Tags[SelectedCategory][0], StopList)).ToList();
-            TestData = FilteredArticles.Skip((int)(FilteredArticles.Count * SliderValue / 100.0)).Select(t => new PreprocessedArticle(t, t.Tags[SelectedCategory][0], StopList)).ToList();
+            ProgressDialog dialog = new ProgressDialog(ProgressDialogSettings.WithLabelOnly)
+            {
+                Owner = _owner,
+                Label = "Processing data..."
+            };
+
+            dialog.Show();
+            _owner.IsEnabled = false;
+            await Task.Run(() =>
+            {
+                TrainingData = FilteredArticles.Take((int)(FilteredArticles.Count * SliderValue / 100.0)).Select(t => new PreprocessedArticle(t, t.Tags[SelectedCategory][0], StopList)).ToList();
+                TestData = FilteredArticles.Skip((int)(FilteredArticles.Count * SliderValue / 100.0)).Select(t => new PreprocessedArticle(t, t.Tags[SelectedCategory][0], StopList)).ToList();
+            });
+            dialog.Close();
+            _owner.IsEnabled = true;
+
 
         }
         public void FilterData()
@@ -128,7 +164,7 @@ namespace ArticlesClassificationView.ViewModels
                 return true;
             return ((TagVM)item).Name.IndexOf(Filter, StringComparison.OrdinalIgnoreCase) >= 0;
         }
-        public void LoadFiles()
+        public async void LoadFiles()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
@@ -136,15 +172,29 @@ namespace ArticlesClassificationView.ViewModels
             openFileDialog.Filter = "SGML files (*.sgm)|*.sgm";
             if (openFileDialog.ShowDialog() == true)
             {
-                foreach (string filename in openFileDialog.FileNames)
+                ProgressDialog dialog = new ProgressDialog(ProgressDialogSettings.WithLabelOnly)
                 {
-                    SgmParser parser = new SgmParser();
-                    Articles.AddRange(parser.FromSgml(Path.GetFullPath(filename)));
-                }
+                    Owner = _owner,
+                    Label = "Loading files"
+                };
 
-                Categories = DataUtils.GetCategories(Articles);
-                if (Categories != null && Categories.Count > 0)
-                    SelectedCategory = Categories[0];
+                dialog.Show();
+                _owner.IsEnabled = false;
+                await Task.Run(() =>
+                {
+                    foreach (string filename in openFileDialog.FileNames)
+                    {
+                        SgmParser parser = new SgmParser();
+                        Articles.AddRange(parser.FromSgml(Path.GetFullPath(filename)));
+                    }
+
+                    Categories = DataUtils.GetCategories(Articles);
+                    if (Categories != null && Categories.Count > 0)
+                        SelectedCategory = Categories[0];
+                });
+                dialog.Close();
+                _owner.IsEnabled = true;
+
             }
         }
 

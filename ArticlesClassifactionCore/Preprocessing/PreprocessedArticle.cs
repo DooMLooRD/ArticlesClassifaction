@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ArticlesClassifactionCore.Data;
+using ArticlesClassifactionCore.Preprocessing;
 
 namespace ArticlesClassifactionCore
 {
@@ -22,9 +23,9 @@ namespace ArticlesClassifactionCore
             List<string> words = data.Text.GetWordsFromBody();
             if (words == null)
                 return;
-            TextPreProcessing.RemoveNonLetterCharacters(ref words);
-            TextPreProcessing.RemoveStopList(ref words, stopList);
-            TextPreProcessing.StemWords(ref words);
+            PreprocessingService.RemoveNonLetterCharacters(ref words);
+            PreprocessingService.RemoveStopList(ref words, stopList);
+            PreprocessingService.StemWords(ref words);
             Words = words;
         }
     }

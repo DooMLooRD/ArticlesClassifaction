@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace ArticlesClassifactionCore.Metrics
 {
-    public class EuclideanMetric : IMetric
+    public class ChebyshevMetric : IMetric
     {
         public double CalculateDistance(List<double> vector1, List<double> vector2)
         {
-            double result = 0;
+            List<double> values = new List<double>();
             for (int i = 0; i < vector1.Count; i++)
             {
-                result += Math.Pow(vector1[i] - vector2[i], 2);
+                values.Add(Math.Abs(vector1[i] - vector2[i]));
             }
-
-            return Math.Sqrt(result);
+            return values.Max();
         }
 
         public override string ToString()
         {
-            return "Euclidean Metric";
+            return "Chebyshev Metric";
         }
     }
 }

@@ -55,15 +55,18 @@
     <Compile Include="Features\KeyWordsExtractor.cs" />
     <Compile Include="Features\TrainingService.cs" />
     <Compile Include="KnnArticle.cs" />
+    <Compile Include="Metrics\ChebyshevMetric.cs" />
     <Compile Include="Metrics\EuclideanMetric.cs" />
     <Compile Include="Metrics\IMetric.cs" />
-    <Compile Include="PreprocessedArticle.cs" />
+    <Compile Include="Metrics\TaxicabMetric.cs" />
+    <Compile Include="Preprocessing\PreprocessedArticle.cs" />
     <Compile Include="KnnService.cs" />
-    <Compile Include="SimilarityFunctions\IsEqualOrNot.cs" />
+    <Compile Include="Preprocessing\PreprocessingService.cs" />
+    <Compile Include="SimilarityFunctions\BinaryFunction.cs" />
     <Compile Include="SimilarityFunctions\ISimilarityFunction.cs" />
-    <Compile Include="TextPreProcessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\SGMParser.cs" />
+    <Compile Include="SimilarityFunctions\NGramFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

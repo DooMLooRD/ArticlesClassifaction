@@ -85,11 +85,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ProgressDialog\Core\WindowSettings.cs" />
+    <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialog.xaml.cs">
+      <DependentUpon>ProgressDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogCancellationException.cs" />
+    <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogContext.cs" />
+    <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogResult.cs" />
+    <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogSettings.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\TagVM.cs" />
     <Compile Include="View\Converters\FillValue.cs" />
+    <Page Include="Controls\ProgressDialog\ProgressDialog\ProgressDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

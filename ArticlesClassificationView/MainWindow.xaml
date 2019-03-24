@@ -6,26 +6,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArticlesClassificationView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="MainWindow" Height="650" Width="800">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
+
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <TextBlock Text="Wybór danych" FontSize="15" FontWeight="Bold"></TextBlock>
-            <Button Content="Załaduj pliki" Command="{Binding LoadFilesCommand}"/>
-            <TextBlock Text="Wybierz kategorię:"/>
-            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" >
+            <TextBlock Margin="5 0" Text="Wybór danych" FontSize="15" FontWeight="Bold"></TextBlock>
+            <Button Margin="5" Content="Załaduj pliki" Command="{Binding LoadFilesCommand}"/>
+            <TextBlock Margin="5 0" Text="Wybierz kategorię:"/>
+            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>
-            <TextBlock Text="Wybierz etykiety:"/>
-            <TextBox Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <ListBox ItemsSource="{Binding Tags}" MinHeight="200" MaxHeight="200">
+            <TextBlock Margin="5 0" Text="Wybierz etykiety:"/>
+            <TextBox Margin="5 0 " Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <ListBox Margin="5" ItemsSource="{Binding Tags}" MinHeight="200" MaxHeight="200">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -34,30 +35,46 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Button Content="Filtruj" Command="{Binding FilterDataCommand}"></Button>
-            <TextBlock Text="Preprocessing" FontSize="15" FontWeight="Bold"></TextBlock>
-            <TextBlock Text="Podział na treningowe/testowe (%)"></TextBlock>
+            <Button Margin="5" Content="Filtruj" Command="{Binding FilterDataCommand}"></Button>
+            <TextBlock Margin="5 10 5 0" Text="Preprocessing" FontSize="15" FontWeight="Bold"></TextBlock>
+            <TextBlock Margin="5" Text="Podział na treningowe/testowe (%)"></TextBlock>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <TextBlock Text="Treningowe"/>
-                    <TextBox  Text="{Binding SliderValue}"/>
+                    <TextBlock Margin="5 0" Text="Treningowe"/>
+                    <TextBox Margin="5" Text="{Binding SliderValue}"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <TextBlock Text="Testowe"/>
-                    <TextBox IsReadOnly="True" Text="{Binding SliderValue, Converter={StaticResource FillValue}}"/>
+                    <TextBlock Margin="5 0" Text="Testowe"/>
+                    <TextBox Margin="5" IsReadOnly="True" Text="{Binding SliderValue, Converter={StaticResource FillValue}}"/>
                 </StackPanel>
             </Grid>
-            <Slider Value="{Binding SliderValue}" Maximum="100" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft"/>
-            <Button Content="Załaduj Stop Listę" Command="{Binding LoadStopListCommand}"/>
-            <Button Content="Utwórz dane"  Command="{Binding CreateDataCommand}"></Button>
+            <Slider Margin="5" Value="{Binding SliderValue}" Maximum="100" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft"/>
+            <Button Margin="5" Content="Załaduj Stop Listę" Command="{Binding LoadStopListCommand}"/>
+            <Button Margin="5" Content="Utwórz dane"  Command="{Binding CreateDataCommand}"></Button>
         </StackPanel>
         <StackPanel Grid.Column="1">
+            <TextBlock Margin="5 0" Text="Uczenie" FontSize="15" FontWeight="Bold"></TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Ilość słów kluczowych w klasie:" TextWrapping="Wrap"></TextBlock>
+                </StackPanel>
+            </Grid>
             <Button Content="Trenuj" Command="{Binding TrainCommand}"/>
-            <Button Content="Klasyfikuj" Command="{Binding ClassifyCommand}"/>
+            <TextBlock Margin="5 0" Text="Klasyfikacja" FontSize="15" FontWeight="Bold"></TextBlock>
+            <TextBlock Margin="5 0" Text="Wybierz metrykę:"/>
+            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding Metrics}" SelectedItem="{Binding SelectedMetric}" />
+            <TextBlock Margin="5 0" Text="Wybierz miarę podobieństwa:"/>
+            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding SimilarityFunctions}" SelectedItem="{Binding SelectedSimilarityFunction}" />
+            <Button Margin="5 0 5 5" Content="Klasyfikuj" Command="{Binding ClassifyCommand}"/>
         </StackPanel>
     </Grid>
 

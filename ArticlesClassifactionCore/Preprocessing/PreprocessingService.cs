@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArticlesClassifactionCore.Data;
 using Iveonik.Stemmers;
 
-namespace ArticlesClassifactionCore
+namespace ArticlesClassifactionCore.Preprocessing
 {
-    public class TextPreProcessing
+    public class PreprocessingService
     {
+        public static List<string> ExtractWordsFromBody(ArticleData data)
+        {
+            return data.Text.GetWordsFromBody();
+        }
         public static void RemoveStopList(ref List<string> words, List<string> stopList)
         {
             words = words.Where(e => !stopList.Contains(e)).ToList();
@@ -24,8 +29,5 @@ namespace ArticlesClassifactionCore
             EnglishStemmer stemmer = new EnglishStemmer();
             words = words.Select(stemmer.Stem).ToList();
         }
-       
     }
-
-
 }
