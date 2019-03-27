@@ -41,7 +41,7 @@ namespace ArticlesClassificationView.ViewModels.Base
 
         public virtual void Execute(object parameter)
         {
-            mAction((T)(object)int.Parse((string)parameter));
+            mAction((T)parameter);
         }
  
     }

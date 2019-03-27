@@ -6,76 +6,606 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArticlesClassificationView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="800">
-    <Grid Margin="10">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="MainWindow" Height="600" Width="1100">
+    <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2*"/>
-
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
-            <TextBlock Margin="5 0" Text="Wybór danych" FontSize="15" FontWeight="Bold"></TextBlock>
-            <Button Margin="5" Content="Załaduj pliki" Command="{Binding LoadFilesCommand}"/>
-            <TextBlock Margin="5 0" Text="Wybierz kategorię:"/>
-            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
-            <TextBlock Margin="5 0" Text="Wybierz etykiety:"/>
-            <TextBox Margin="5 0 " Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <ListBox Margin="5" ItemsSource="{Binding Tags}" MinHeight="200" MaxHeight="200">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Margin="5" Content="Filtruj" Command="{Binding FilterDataCommand}"></Button>
-            <TextBlock Margin="5 10 5 0" Text="Preprocessing" FontSize="15" FontWeight="Bold"></TextBlock>
-            <TextBlock Margin="5" Text="Podział na treningowe/testowe (%)"></TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock Margin="5 0" Text="Treningowe"/>
-                    <TextBox Margin="5" Text="{Binding SliderValue}"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Margin="5 0" Text="Testowe"/>
-                    <TextBox Margin="5" IsReadOnly="True" Text="{Binding SliderValue, Converter={StaticResource FillValue}}"/>
-                </StackPanel>
-            </Grid>
-            <Slider Margin="5" Value="{Binding SliderValue}" Maximum="100" Minimum="1" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="TopLeft"/>
-            <Button Margin="5" Content="Załaduj Stop Listę" Command="{Binding LoadStopListCommand}"/>
-            <Button Margin="5" Content="Utwórz dane"  Command="{Binding CreateDataCommand}"></Button>
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <TextBlock Margin="5 0" Text="Uczenie" FontSize="15" FontWeight="Bold"></TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+        <!-- Classification Page -->
+        <Border Padding="5" Grid.Column="0" >
+            <materialDesign:ColorZone             
+                Padding="6 16"
+                CornerRadius="2"
+                VerticalAlignment="Stretch"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Margin="5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        Margin="8">
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            Text="Light"/>
+                        <ToggleButton 
+                            Margin="8 0 16 0"
+                            Command="{Binding ToggleBaseCommand}" 
+                            CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=IsChecked}" />
+                        <TextBlock 
+                            VerticalAlignment="Center" 
+                            Text="Dark"/>
+                    </StackPanel>
+                    <dragablz:TabablzControl 
+                        Grid.Row="1" 
+                        TabStripPlacement="Left">
+
+                        <!-- Data loading -->
+                        <TabItem 
+                            TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                            <TabItem.Header>
+                                <TextBlock  
+                                    Text ="Wybór danych" 
+                                    TextWrapping="Wrap"/>
+                            </TabItem.Header>
+                            <StackPanel 
+                                Margin="10 0 0 0">
+                                <TextBlock 
+                                    Margin="5 10 5 10" 
+                                    Text="Wybór danych" 
+                                    FontSize="15" 
+                                    FontWeight="Bold"/>
+                                <Button 
+                                    Margin="5" 
+                                    Content="Załaduj pliki" 
+                                    Command="{Binding LoadFilesCommand}"/>
+                                <TextBlock 
+                                    Margin="5 0" 
+                                    Text="Wybierz kategorię:"/>
+                                <ComboBox 
+                                    Margin="5 0 5 5" 
+                                    ItemsSource="{Binding Categories}" 
+                                    SelectedItem="{Binding SelectedCategory}" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding Path=SelectionChanged}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <TextBlock 
+                                    Margin="5 0" 
+                                    Text="Wybierz etykiety:"/>
+                                <TextBox 
+                                    Margin="5 0 " 
+                                    Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"/>
+                                <ListBox 
+                                    Margin="5" 
+                                    ItemsSource="{Binding Tags}" 
+                                    MinHeight="200" 
+                                    MaxHeight="200">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <CheckBox 
+                                                    Content="{Binding Name}" 
+                                                    IsChecked="{Binding IsChecked}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button 
+                                    Margin="5" 
+                                    Content="Filtruj" 
+                                    Command="{Binding FilterDataCommand}"
+                                    IsEnabled="{Binding IsDataLoaded}"/>
+                            </StackPanel>
+                        </TabItem>
+                        <!-- End Data loading -->
+            
+                        <!-- Preprocessing -->
+                        <TabItem 
+                            TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                            <TabItem.Header>
+                                <TextBlock  
+                                    Text ="Preprocessing" 
+                                    TextAlignment="Center" 
+                                    TextWrapping="Wrap"/>
+                            </TabItem.Header>
+                            <StackPanel
+                                Margin="10 0 0 0">
+                                <TextBlock 
+                                    Margin="5 10 5 5" 
+                                    Text="Preprocessing" 
+                                    FontSize="15" 
+                                    FontWeight="Bold"/>
+                                <Button 
+                                    Margin="5" 
+                                    Content="Załaduj Stop Listę" 
+                                    Command="{Binding LoadStopListCommand}"
+                                    IsEnabled="{Binding IsDataFiltered}"/>
+                                <TextBlock
+                                    Margin="5" 
+                                    Text="Podział na treningowe/testowe (%)"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock 
+                                            Margin="5 0" 
+                                            Text="Treningowe"/>
+                                        <TextBox 
+                                            Margin="5" 
+                                            Text="{Binding SliderValue}"/>
+                                    </StackPanel>
+                                    <StackPanel 
+                                        Grid.Column="1">
+                                        <TextBlock
+                                            Margin="5 0"
+                                            Text="Testowe"/>
+                                        <TextBox 
+                                            Margin="5"
+                                            IsReadOnly="True" 
+                                            Text="{Binding SliderValue, Converter={StaticResource FillValue}}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Slider 
+                                    Margin="5" 
+                                    Value="{Binding SliderValue}"
+                                    Maximum="100"
+                                    Minimum="1" 
+                                    IsSnapToTickEnabled="True" 
+                                    TickFrequency="1" 
+                                    TickPlacement="TopLeft"/>
+                                <CheckBox
+                                    IsChecked="{Binding IsStemming}"
+                                    Content="Stemming"
+                                    Style="{StaticResource MaterialDesignCheckBox}"/>
+                                <CheckBox
+                                    IsChecked="{Binding IsRemovingNonLetter}"
+                                    Content="Remove non letter characters"
+                                    Style="{StaticResource MaterialDesignCheckBox}"/>
+                                <CheckBox
+                                    IsChecked="{Binding IsRemovingStopList}"
+                                    Content="Remove stop list words"
+                                    Style="{StaticResource MaterialDesignCheckBox}"/>
+                                <Button 
+                                    Margin="5" 
+                                    Content="Przetwórz"  
+                                    Command="{Binding CreateDataCommand}"
+                                    IsEnabled="{Binding IsStopListLoaded}"/>
+                            </StackPanel>
+                        </TabItem>
+                        <!-- End Preprocessing -->
+
+                        <!-- Learning -->
+                        <TabItem  
+                            TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                            <TabItem.Header>
+                                <TextBlock  
+                                    Text ="Uczenie" 
+                                    TextAlignment="Center" 
+                                    TextWrapping="Wrap"/>
+                            </TabItem.Header>
+                            <StackPanel 
+                                Margin="10 0 0 0">
+                                <TextBlock
+                                    Margin="5 10 5 10" 
+                                    Text="Uczenie" 
+                                    FontSize="15"
+                                    FontWeight="Bold"/>
+                                <Button 
+                                    Content="Trenuj" 
+                                    Command="{Binding TrainCommand}"
+                                    IsEnabled="{Binding IsDataPreprocessed}"/>
+                            </StackPanel>
+                        </TabItem>
+                        <!-- End Learning -->
+
+                        <!-- Classification -->
+                        <TabItem 
+                            TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                            <TabItem.Header>
+                                <StackPanel  
+                                    Margin="10 0 0 0">
+                                    <TextBlock  
+                                        Text ="Klasyfikacja" 
+                                        TextAlignment="Center" 
+                                        TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </TabItem.Header>
+                            <StackPanel  
+                                Margin="10 0 0 0">
+                                <TextBlock
+                                    Margin="5 10 5 10" 
+                                    Text="Klasyfikacja" 
+                                    FontSize="15" 
+                                    FontWeight="Bold"/>
+                                <TextBlock 
+                                    Margin="5 0" 
+                                    Text="Wybierz metrykę:"/>
+                                <ComboBox 
+                                    Margin="5 0 5 5"
+                                    ItemsSource="{Binding Metrics}" 
+                                    SelectedItem="{Binding SelectedMetric}" />
+                                <TextBlock 
+                                    Margin="5 0" Text="Wybierz miarę podobieństwa:"/>
+                                <ComboBox 
+                                    Margin="5 0 5 5" 
+                                    ItemsSource="{Binding SimilarityFunctions}" 
+                                    SelectedItem="{Binding SelectedSimilarityFunction}" />
+                                <Button 
+                                    Margin="5 0 5 5" 
+                                    Content="Klasyfikuj" 
+                                    Command="{Binding ClassifyCommand}"/>
+                            </StackPanel>
+                        </TabItem>
+                        <!-- End Classification -->
+
+                    </dragablz:TabablzControl>
+                </Grid>
+            </materialDesign:ColorZone>
+        </Border>
+        <!-- End Classification Page -->
+
+        <!-- Result Page -->
+        <Border Padding="5" Grid.Column="1">
+            <materialDesign:ColorZone             
+                Padding="6 16"
+                CornerRadius="2"
+                VerticalAlignment="Stretch"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Margin="5">
                 <StackPanel>
-                    <TextBlock Text="Ilość słów kluczowych w klasie:" TextWrapping="Wrap"></TextBlock>
+                    <TextBlock 
+                        Margin="5 10 5 10" 
+                        Text="Wyniki" 
+                        FontSize="15" 
+                        FontWeight="Bold"/>
+                    <!-- Key Words-->
+                    <Expander
+                        Header="Słowa kluczowe">
+                        <ListView
+                            MaxHeight="200"
+                            MinHeight="200"
+                            VerticalContentAlignment="Top" 
+                            ScrollViewer.VerticalScrollBarVisibility="Visible"
+                            ScrollViewer.CanContentScroll="False"
+                            ItemsSource="{Binding KeyWords}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="150"
+                                        DisplayMemberBinding="{Binding Tag}"
+                                        Header="Tag" />
+                                    <GridViewColumn
+                                        Width="150"
+                                        DisplayMemberBinding="{Binding Word}"
+                                        Header="Word" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Expander>
+                    <!-- End Key Words-->
+
+                    <!-- Classification result -->
+                    <Expander
+                        Header="Klasyfikacja">
+                        <ListView
+                            ItemsSource="{Binding Results}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn
+                                        Width="100"
+                                        DisplayMemberBinding="{Binding Tag}"
+                                        Header="Tag" />
+                                    <GridViewColumn
+                                        Width="90"
+                                        DisplayMemberBinding="{Binding All}"
+                                        Header="All" />
+                                    <GridViewColumn
+                                        Width="90"
+                                        DisplayMemberBinding="{Binding Tp}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock TextWrapping="Wrap" Text="True Positive"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                    <GridViewColumn
+                                        Width="90"
+                                        DisplayMemberBinding="{Binding Tn}">
+                                        <GridViewColumn.Header>
+                                            <TextBlock TextWrapping="Wrap" Text="False Negative"></TextBlock>
+                                        </GridViewColumn.Header>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Expander>
+                    <!-- Classification result -->
+
                 </StackPanel>
-            </Grid>
-            <Button Content="Trenuj" Command="{Binding TrainCommand}"/>
-            <TextBlock Margin="5 0" Text="Klasyfikacja" FontSize="15" FontWeight="Bold"></TextBlock>
-            <TextBlock Margin="5 0" Text="Wybierz metrykę:"/>
-            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding Metrics}" SelectedItem="{Binding SelectedMetric}" />
-            <TextBlock Margin="5 0" Text="Wybierz miarę podobieństwa:"/>
-            <ComboBox Margin="5 0 5 5" ItemsSource="{Binding SimilarityFunctions}" SelectedItem="{Binding SelectedSimilarityFunction}" />
-            <Button Margin="5 0 5 5" Content="Klasyfikuj" Command="{Binding ClassifyCommand}"/>
-        </StackPanel>
+               
+            </materialDesign:ColorZone>
+        </Border>
+        <!-- End Result Page -->
+
+        <!-- Status Page -->
+        <Border Padding="5 5 0 5" Grid.Column="2">
+            <materialDesign:ColorZone             
+                Padding="6 16"
+                CornerRadius="2"
+                VerticalAlignment="Stretch"
+                materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                Margin="5">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding DataStatus, FallbackValue='1. Data is not loaded.'}"/>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding FilterStatus, FallbackValue='2. Data is not filtered.'}"/>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding StopListStatus, FallbackValue='3. Stop List is not loaded.'}"/>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding PreprocessingStatus, FallbackValue='4. Data is not preprocessed.'}"/>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding LearnStatus, FallbackValue='5. Not learned.'}"/>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone  Height="30">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Text="{Binding ClassificationStatus, FallbackValue='6. Not classified.'}"/>
+                        </materialDesign:ColorZone>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon 
+                                                Kind="Close"
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDataLoading}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <ProgressBar
+                                                        Height="30" Width="30"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="0"
+                                                        IsIndeterminate="True" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsDataLoaded}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check"
+                                                        Height="30" 
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon 
+                                                Kind="Close" 
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDataFiltered}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check" 
+                                                        Height="30"
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon 
+                                                Kind="Close" 
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsStopListLoaded}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check"
+                                                        Height="30" 
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon
+                                                Kind="Close" 
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsDataPreprocessing}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <ProgressBar
+                                                        Height="30" Width="30"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="0"
+                                                        IsIndeterminate="True" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsDataPreprocessed}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check" 
+                                                        Height="30"
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon 
+                                                Kind="Close" 
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsLearning}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <ProgressBar
+                                                        Height="30" Width="30"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="0"
+                                                        IsIndeterminate="True" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsLearned}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check" 
+                                                        Height="30" 
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                        <materialDesign:ColorZone >
+                            <materialDesign:ColorZone.Style>
+                                <Style TargetType="materialDesign:ColorZone">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <materialDesign:PackIcon
+                                                Kind="Close" 
+                                                Height="30" 
+                                                Width="30" 
+                                                Foreground="Red" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsClassifying}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <ProgressBar
+                                                        Height="30" Width="30"
+                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                                        Value="0"
+                                                        IsIndeterminate="True" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsClassified}" Value="True">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <materialDesign:PackIcon 
+                                                        Kind="Check" 
+                                                        Height="30"
+                                                        Width="30" 
+                                                        Foreground="Green"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:ColorZone.Style>
+                        </materialDesign:ColorZone>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:ColorZone>
+        </Border>
+        <!-- End Status Page -->
+
     </Grid>
 
 </Window>

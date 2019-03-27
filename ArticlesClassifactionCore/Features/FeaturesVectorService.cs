@@ -23,11 +23,15 @@ namespace ArticlesClassifactionCore.Features
             foreach (string tag in KeyWords.Keys)
             {
                 double feature = 0;
+                double feature1 = 0;
                 foreach (string keyWord in KeyWords[tag])
                 {
                     feature += article.Words.Sum(t => SimilarityFunction.CalculateSimilarity(keyWord, t));
+                    feature1 += article.Words.Distinct().Contains(keyWord) ? 1 : 0;
                 }
+
                 features.Add(feature);
+                features.Add(feature1);
             }
 
             return features;
