@@ -34,23 +34,23 @@ namespace ArticlesClassifactionCore.Features
                 KeyWordsExtractor extractor = new KeyWordsExtractor(articles);
 
                 List<(string, int)> df = new List<(string, int)>();
-                df.AddRange(extractor.WordsNumber.Select(t => (t.Key, t.Value)));
+                df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, t.Value)));
 
                 keyWords.Add(tag, df.OrderByDescending(n => n.Item2).Select(t => t.Item1).ToList());
             }
 
             foreach (string tag in Tags)
             {
-                //var notInTag = new List<string>();
-                //foreach (string s in Tags)
-                //{
-                //    if (s != tag)
-                //    {
-                //        notInTag.AddRange(keyWords[s].Take((int)(keyWords[s].Count*0.2)));
-                //    }
-                //}
-                //var distinctInTag = keyWords[tag].Except(notInTag).ToList();
-                KeyWords[tag] = keyWords[tag].Take(30).ToList();
+                var notInTag = new List<string>();
+                foreach (string s in Tags)
+                {
+                    if (s != tag)
+                    {
+                        notInTag.AddRange(keyWords[s].Take(150));
+                    }
+                }
+                var distinctInTag = keyWords[tag].Except(notInTag).ToList();
+                KeyWords[tag] = distinctInTag.Take(30).ToList();
             }
         }
     }

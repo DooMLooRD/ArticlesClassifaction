@@ -51,8 +51,12 @@
   <ItemGroup>
     <Compile Include="Data\ArticleData.cs" />
     <Compile Include="Data\DataUtils.cs" />
+    <Compile Include="Features\CountOfKeyWordsExtractor.cs" />
+    <Compile Include="Features\Feature.cs" />
     <Compile Include="Features\FeaturesVectorService.cs" />
+    <Compile Include="Features\IFeatureExtractor.cs" />
     <Compile Include="Features\KeyWordsExtractor.cs" />
+    <Compile Include="Features\SumOfSimilarityArticle_KeyWordsExtractor.cs" />
     <Compile Include="Features\TrainingService.cs" />
     <Compile Include="KnnArticle.cs" />
     <Compile Include="Metrics\ChebyshevMetric.cs" />

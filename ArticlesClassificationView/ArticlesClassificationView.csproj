@@ -104,10 +104,12 @@
     <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogSettings.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\ExtractorVM.cs" />
+    <Compile Include="ViewModels\FeatureVM.cs" />
     <Compile Include="ViewModels\KeyWordVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />
-    <Compile Include="ViewModels\TagVM.cs" />
+    <Compile Include="ViewModels\CheckBoxVM.cs" />
     <Compile Include="View\Converters\FillValue.cs" />
     <Page Include="Controls\ProgressDialog\ProgressDialog\ProgressDialog.xaml">
       <Generator>MSBuild:Compile</Generator>

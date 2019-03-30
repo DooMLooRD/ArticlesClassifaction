@@ -38,7 +38,7 @@ namespace ArticlesClassificationView.ViewModels
         public List<ArticleData> FilteredArticles { get; set; }
         public List<PreprocessedArticle> TrainingData { get; set; }
         public List<PreprocessedArticle> TestData { get; set; }
-        public ObservableCollection<TagVM> Tags { get; set; }
+        public ObservableCollection<CheckBoxVM> Tags { get; set; }
         public CollectionView TagsFiltered { get; set; }
         public List<string> StopList { get; set; }
         public int SliderValue { get; set; }
@@ -49,6 +49,7 @@ namespace ArticlesClassificationView.ViewModels
         public IMetric SelectedMetric { get; set; }
         public List<ISimilarityFunction> SimilarityFunctions { get; set; }
         public ISimilarityFunction SelectedSimilarityFunction { get; set; }
+        public List<ExtractorVM> Extractors { get; set; }
 
         #endregion
 
@@ -81,7 +82,7 @@ namespace ArticlesClassificationView.ViewModels
         public string StopListStatus { get; set; } = "3. Stop List is not loaded.";
         public string PreprocessingStatus { get; set; } = "4. Data is not preprocessed.";
         public string LearnStatus { get; set; } = "5. Not learned.";
-        public string ClassificationStatus { get; set; } = "5. Not classified.";
+        public string ClassificationStatus { get; set; } = "6. Not classified.";
 
 
         #endregion
@@ -112,7 +113,7 @@ namespace ArticlesClassificationView.ViewModels
         {
             _owner = owner;
             SliderValue = 60;
-            Tags = new ObservableCollection<TagVM>();
+            Tags = new ObservableCollection<CheckBoxVM>();
             Categories = new List<string>();
             Articles = new List<ArticleData>();
             StopList = new List<string>();
@@ -129,6 +130,7 @@ namespace ArticlesClassificationView.ViewModels
             Metrics = new List<IMetric> { new EuclideanMetric(), new ChebyshevMetric(), new TaxicabMetric() };
             SelectedMetric = Metrics[0];
             SimilarityFunctions = new List<ISimilarityFunction> { new BinaryFunction(), new NGramFunction(4) };
+            Extractors = new List<ExtractorVM>();
             SelectedSimilarityFunction = SimilarityFunctions[0];
         }
 
@@ -153,7 +155,26 @@ namespace ArticlesClassificationView.ViewModels
                             });
                         }
 
+
                     }
+
+                    IFeatureExtractor countExtractor = new CountOfKeyWordsExtractor(TrainingService.KeyWords);
+                    IFeatureExtractor sumExtractor = new SumOfSimilarityArticleKeyWordsExtractor(TrainingService.KeyWords);
+                    Extractors = new List<ExtractorVM>()
+                    {
+                        new ExtractorVM()
+                        {
+                            FeatureExtractor = countExtractor,
+                            IsChecked = true,
+                            Features = countExtractor.Features.Select(c=> new CheckBoxVM(){Name = c.Name,IsChecked = c.IsChecked}).ToList()
+                        },
+                        new ExtractorVM()
+                        {
+                            FeatureExtractor = sumExtractor,
+                            IsChecked = true,
+                            Features = sumExtractor.Features.Select(c=> new CheckBoxVM(){Name = c.Name,IsChecked = c.IsChecked}).ToList()
+                        }
+                    };
                     LearnStatus = "5. Learned.";
                     IsLearned = true;
 
@@ -174,28 +195,37 @@ namespace ArticlesClassificationView.ViewModels
         public async void Classify()
         {
             IsClassifying = true;
+            IsClassified = false;
             ClassificationStatus = "6. Classifying...";
             await Task.Run(() =>
                 {
                     try
                     {
+                        Results=new List<ResultVM>();
                         SelectedTags.ForEach(c => Results.Add(new ResultVM { Tag = c }));
-                        KnnService =
-                            new KnnService(new FeaturesVectorService(TrainingService.KeyWords, SelectedSimilarityFunction),
-                                SelectedMetric, 15);
+                        KnnService = new KnnService(new FeaturesVectorService(TrainingService.KeyWords, SelectedSimilarityFunction, Extractors.Where(c => c.IsChecked).Select(
+                                    t =>
+                                    {
+                                        var c = t.FeatureExtractor;
+                                        c.Features = t.Features.Select(e => new Feature()
+                                        { IsChecked = e.IsChecked, Name = e.Name }).ToList();
+                                        return c;
+                                    }).ToList()),
+                                SelectedMetric, 8);
                         List<PreprocessedArticle> articles = new List<PreprocessedArticle>();
+                        List<PreprocessedArticle> testArticles = TestData.ToList();
                         foreach (var pro in SelectedTags)
                         {
-                            var temp = TestData.Where(t => t.Label == pro).Take(20).ToList();
+                            var temp = TestData.Where(t => t.Label == pro).Take(30).ToList();
                             articles.AddRange(temp);
                             foreach (PreprocessedArticle article in temp)
                             {
-                                TestData.Remove(article);
+                                testArticles.Remove(article);
                             }
                         }
 
                         KnnService.InitKnn(articles);
-                        foreach (PreprocessedArticle preprocessedArticle in TestData)
+                        foreach (PreprocessedArticle preprocessedArticle in testArticles)
                         {
                             var predictedLabel = KnnService.ClassifyArticle(preprocessedArticle);
                             foreach (string key in SelectedTags)
@@ -217,7 +247,7 @@ namespace ArticlesClassificationView.ViewModels
 
                         IsClassified = true;
                         ClassificationStatus = "6. Classified.";
-                        
+
                     }
                     catch (Exception e)
                     {
@@ -284,7 +314,7 @@ namespace ArticlesClassificationView.ViewModels
         {
             if (String.IsNullOrEmpty(Filter))
                 return true;
-            return ((TagVM)item).Name.IndexOf(Filter, StringComparison.OrdinalIgnoreCase) >= 0;
+            return ((CheckBoxVM)item).Name.IndexOf(Filter, StringComparison.OrdinalIgnoreCase) >= 0;
         }
         public async void LoadFiles()
         {
@@ -330,7 +360,7 @@ namespace ArticlesClassificationView.ViewModels
 
         public void LoadTags()
         {
-            Tags = new ObservableCollection<TagVM>(DataUtils.GetTags(Articles, SelectedCategory).Select(t => new TagVM() { IsChecked = false, Name = t }));
+            Tags = new ObservableCollection<CheckBoxVM>(DataUtils.GetTags(Articles, SelectedCategory).Select(t => new CheckBoxVM() { IsChecked = false, Name = t }));
             TagsFiltered = (CollectionView)CollectionViewSource.GetDefaultView(Tags);
             TagsFiltered.Filter = FilterTags;
         }

@@ -16,7 +16,8 @@ namespace ArticlesClassifactionCore.Metrics
                 result += Math.Pow(vector1[i] - vector2[i], 2);
             }
 
-            return Math.Sqrt(result);
+            var end = Math.Sqrt(result);
+            return end;
         }
 
         public override string ToString()

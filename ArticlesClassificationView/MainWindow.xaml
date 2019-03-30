@@ -96,11 +96,9 @@
                                     MaxHeight="200">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <CheckBox 
+                                            <CheckBox 
                                                     Content="{Binding Name}" 
                                                     IsChecked="{Binding IsChecked}"/>
-                                            </StackPanel>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
@@ -112,7 +110,7 @@
                             </StackPanel>
                         </TabItem>
                         <!-- End Data loading -->
-            
+
                         <!-- Preprocessing -->
                         <TabItem 
                             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
@@ -246,6 +244,89 @@
                                     Margin="5 0 5 5" 
                                     ItemsSource="{Binding SimilarityFunctions}" 
                                     SelectedItem="{Binding SelectedSimilarityFunction}" />
+                                <TextBlock 
+                                    Margin="5 0" Text="Wybierz ekstraktory cech:"/>
+                                <materialDesign:Card
+                                    Margin="5 0 5 5" 
+                                    MinHeight="250" 
+                                    MaxHeight="250">
+                                    <ListBox 
+                                    Margin="5 0 5 5" 
+                                    ItemsSource="{Binding Extractors}" 
+                                    >
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <materialDesign:Flipper
+                                                Style="{StaticResource MaterialDesignCardFlipper}">
+                                                    <materialDesign:Flipper.FrontContent>
+                                                        <StackPanel>
+
+                                                            <CheckBox 
+                                                            Margin="8"
+                                                            Content="{Binding FeatureExtractor}"
+                                                            IsChecked="{Binding IsChecked}"/>
+                                                            <Button
+                                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                                            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                            Margin="8"
+                                                            Content="Wybierz cechy"/>
+                                                        </StackPanel>
+                                                    </materialDesign:Flipper.FrontContent>
+                                                    <materialDesign:Flipper.BackContent>
+                                                        <Grid
+                                                            Width="300">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition
+                                                                Height="Auto" />
+                                                                <RowDefinition
+                                                                Height="*" />
+                                                            </Grid.RowDefinitions>
+                                                            <materialDesign:ColorZone
+                                                            Mode="Accent"
+                                                            Padding="6">
+                                                                <StackPanel
+                                                                Orientation="Horizontal">
+                                                                    <Button
+                                                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                                                    Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                                                    HorizontalAlignment="Left">
+                                                                        <materialDesign:PackIcon
+                                                                        Kind="ArrowLeft"
+                                                                        HorizontalAlignment="Right" />
+                                                                    </Button>
+                                                                    <TextBlock
+                                                                    Margin="8 0 0 0"
+                                                                    VerticalAlignment="Center"
+                                                                    Text="Wybierz cechy:"/>
+                                                                </StackPanel>
+                                                            </materialDesign:ColorZone>
+                                                            <Grid
+                                                            Grid.Row="1"
+                                                            Margin="0 6 0 0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Top">
+                                                                <ListBox 
+                                                                Margin="5" 
+                                                                ItemsSource="{Binding Features}" 
+                                                                MinHeight="200" 
+                                                                MaxHeight="200">
+                                                                    <ListBox.ItemTemplate>
+                                                                        <DataTemplate>
+                                                                            <CheckBox 
+                                                                            Content="{Binding Name}" 
+                                                                            IsChecked="{Binding IsChecked}"/>
+                                                                        </DataTemplate>
+                                                                    </ListBox.ItemTemplate>
+                                                                </ListBox>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </materialDesign:Flipper.BackContent>
+                                                </materialDesign:Flipper>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </materialDesign:Card>
+                               
                                 <Button 
                                     Margin="5 0 5 5" 
                                     Content="Klasyfikuj" 
@@ -281,8 +362,6 @@
                             MaxHeight="200"
                             MinHeight="200"
                             VerticalContentAlignment="Top" 
-                            ScrollViewer.VerticalScrollBarVisibility="Visible"
-                            ScrollViewer.CanContentScroll="False"
                             ItemsSource="{Binding KeyWords}">
                             <ListView.View>
                                 <GridView>
@@ -336,7 +415,7 @@
                     <!-- Classification result -->
 
                 </StackPanel>
-               
+
             </materialDesign:ColorZone>
         </Border>
         <!-- End Result Page -->
