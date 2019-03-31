@@ -24,7 +24,7 @@ namespace ArticlesClassifactionCore.Features
                 KeyWords.Add(tag, new List<string>());
             }
         }
-        public void Train()
+        public void Train(string selectedExtractor, int keyWordsCount)
         {
             Dictionary<string, List<string>> keyWords = new Dictionary<string, List<string>>();
             foreach (string tag in Tags)
@@ -34,7 +34,10 @@ namespace ArticlesClassifactionCore.Features
                 KeyWordsExtractor extractor = new KeyWordsExtractor(articles);
 
                 List<(string, int)> df = new List<(string, int)>();
-                df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, t.Value)));
+                if (selectedExtractor.Equals("TermFrequency"))
+                    df.AddRange(extractor.WordsNumber.Select(t => (t.Key, t.Value)));
+                if (selectedExtractor.Equals("DocumentFrequency"))
+                    df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, t.Value)));
 
                 keyWords.Add(tag, df.OrderByDescending(n => n.Item2).Select(t => t.Item1).ToList());
             }
@@ -50,7 +53,7 @@ namespace ArticlesClassifactionCore.Features
                     }
                 }
                 var distinctInTag = keyWords[tag].Except(notInTag).ToList();
-                KeyWords[tag] = distinctInTag.Take(30).ToList();
+                KeyWords[tag] = distinctInTag.Take(keyWordsCount).ToList();
             }
         }
     }

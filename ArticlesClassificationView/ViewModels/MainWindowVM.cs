@@ -12,6 +12,7 @@ using System.Windows.Input;
 using ArticlesClassifactionCore;
 using ArticlesClassifactionCore.Data;
 using ArticlesClassifactionCore.Features;
+using ArticlesClassifactionCore.Features.FeatureExtractors;
 using ArticlesClassifactionCore.Metrics;
 using ArticlesClassifactionCore.SimilarityFunctions;
 using ArticlesClassificationView.ViewModels.Base;
@@ -50,7 +51,11 @@ namespace ArticlesClassificationView.ViewModels
         public List<ISimilarityFunction> SimilarityFunctions { get; set; }
         public ISimilarityFunction SelectedSimilarityFunction { get; set; }
         public List<ExtractorVM> Extractors { get; set; }
-
+        public List<string> KeyWordsExtractors { get; set; }
+        public string SelectedKeyWordsExtractor { get; set; }
+        public int KeyWordsCount { get; set; }
+        public int ParamK { get; set; }
+        public int ColdStartData { get; set; }
         #endregion
 
         #region Result Data
@@ -127,6 +132,11 @@ namespace ArticlesClassificationView.ViewModels
             TrainCommand = new RelayCommand(Train);
             ClassifyCommand = new RelayCommand(Classify);
             ToggleBaseCommand = new RelayCommand<bool>(ApplyBase);
+            KeyWordsExtractors = new List<string>() { "TermFrequency", "DocumentFrequency" };
+            ParamK = 10;
+            SelectedKeyWordsExtractor = KeyWordsExtractors[0];
+            KeyWordsCount = 30;
+            ColdStartData = 20;
             Metrics = new List<IMetric> { new EuclideanMetric(), new ChebyshevMetric(), new TaxicabMetric() };
             SelectedMetric = Metrics[0];
             SimilarityFunctions = new List<ISimilarityFunction> { new BinaryFunction(), new NGramFunction(4) };
@@ -143,7 +153,8 @@ namespace ArticlesClassificationView.ViewModels
             {
                 try
                 {
-                    TrainingService.Train();
+                    KeyWords=new List<KeyWordVM>();
+                    TrainingService.Train(SelectedKeyWordsExtractor, KeyWordsCount);
                     foreach (string tag in SelectedTags)
                     {
                         foreach (string s in TrainingService.KeyWords[tag])
@@ -160,6 +171,7 @@ namespace ArticlesClassificationView.ViewModels
 
                     IFeatureExtractor countExtractor = new CountOfKeyWordsExtractor(TrainingService.KeyWords);
                     IFeatureExtractor sumExtractor = new SumOfSimilarityArticleKeyWordsExtractor(TrainingService.KeyWords);
+                    IFeatureExtractor articleExtractor = new ArticleExtractor();
                     Extractors = new List<ExtractorVM>()
                     {
                         new ExtractorVM()
@@ -173,6 +185,12 @@ namespace ArticlesClassificationView.ViewModels
                             FeatureExtractor = sumExtractor,
                             IsChecked = true,
                             Features = sumExtractor.Features.Select(c=> new CheckBoxVM(){Name = c.Name,IsChecked = c.IsChecked}).ToList()
+                        },
+                        new ExtractorVM()
+                        {
+                            FeatureExtractor = articleExtractor,
+                            IsChecked = true,
+                            Features = articleExtractor.Features.Select(c=> new CheckBoxVM(){Name = c.Name,IsChecked = c.IsChecked}).ToList()
                         }
                     };
                     LearnStatus = "5. Learned.";
@@ -201,7 +219,7 @@ namespace ArticlesClassificationView.ViewModels
                 {
                     try
                     {
-                        Results=new List<ResultVM>();
+                        Results = new List<ResultVM>();
                         SelectedTags.ForEach(c => Results.Add(new ResultVM { Tag = c }));
                         KnnService = new KnnService(new FeaturesVectorService(TrainingService.KeyWords, SelectedSimilarityFunction, Extractors.Where(c => c.IsChecked).Select(
                                     t =>
@@ -211,12 +229,12 @@ namespace ArticlesClassificationView.ViewModels
                                         { IsChecked = e.IsChecked, Name = e.Name }).ToList();
                                         return c;
                                     }).ToList()),
-                                SelectedMetric, 8);
+                                SelectedMetric, ParamK);
                         List<PreprocessedArticle> articles = new List<PreprocessedArticle>();
                         List<PreprocessedArticle> testArticles = TestData.ToList();
                         foreach (var pro in SelectedTags)
                         {
-                            var temp = TestData.Where(t => t.Label == pro).Take(30).ToList();
+                            var temp = TestData.Where(t => t.Label == pro).Take(ColdStartData).ToList();
                             articles.AddRange(temp);
                             foreach (PreprocessedArticle article in temp)
                             {
@@ -300,7 +318,7 @@ namespace ArticlesClassificationView.ViewModels
             {
                 SelectedTags = Tags.Where(s => s.IsChecked).Select(t => t.Name).ToList();
                 FilteredArticles = DataUtils.Filter(Articles, SelectedCategory,
-                    SelectedTags);
+                    SelectedTags).Where(c => c.Text.Body != null).ToList();
                 FilterStatus = "2. Data is filtered.";
                 IsDataFiltered = true;
             }

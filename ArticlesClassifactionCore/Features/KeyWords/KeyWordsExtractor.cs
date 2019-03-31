@@ -54,7 +54,7 @@ namespace ArticlesClassifactionCore.Features
         {
             return Math.Log(Articles.Count / (double)DocumentFrequency[word]);
         }
-        public static Dictionary<string, double> TermFrequency(PreprocessedArticle article)
+        private static Dictionary<string, double> TermFrequency(PreprocessedArticle article)
         {
             Dictionary<string, double> distinctWords = new Dictionary<string, double>();
             foreach (string word in article.Words)
