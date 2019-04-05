@@ -16,7 +16,7 @@ namespace ArticlesClassifactionCore.Data
 
         public static List<string> GetTags(List<ArticleData> articles, string category)
         {
-            return articles.Where(t => t.Tags.ContainsKey(category)).SelectMany(a => a.Tags[category]).Distinct().ToList();
+            return articles.Where(t => t.Tags.ContainsKey(category)).SelectMany(a => a.Tags[category]).GroupBy(c => c).Select(c => (c.Key, c.Count())).OrderByDescending(c => c.Item2).Select(c => c.Item1).ToList();
         }
 
         public static List<ArticleData> Filter(List<ArticleData> articles, string category, List<string> tags)

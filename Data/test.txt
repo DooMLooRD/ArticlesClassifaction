@@ -1,0 +1,44 @@
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Euclidean Metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3903  63     63     159            88      23
+            uk   61 173     22      11             7      12
+         japan   30   3    153       1             5       0
+        canada  130   2      3     157             2       3
+  west-germany    7   3      0       0            99       5
+        france   12   1      0       0             1      55
+Precision(1) and recall(2):
+         usa  94,21%  90,79%
+          uk  70,61%  60,49%
+       japan  63,49%  79,69%
+      canada  47,87%  52,86%
+west-germany  49,01%  86,84%
+      france  56,12%  79,71%
+Overall accuracy:  86,36%
+Time: 125399
+-------------------------------------------

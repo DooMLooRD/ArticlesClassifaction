@@ -6,6 +6,6 @@ namespace ArticlesClassifactionCore.Features.FeatureExtractors
     public interface IFeatureExtractor
     {
         List<Feature> Features { get; set; }
-        List<double> GetFeatures(PreprocessedArticle article,ISimilarityFunction function);
+        List<double> GetFeatures(PreprocessedArticle article);
     }
 }

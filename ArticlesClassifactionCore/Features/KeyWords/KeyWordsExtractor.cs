@@ -7,8 +7,8 @@ namespace ArticlesClassifactionCore.Features
     public class KeyWordsExtractor
     {
         public List<PreprocessedArticle> Articles { get; set; }
-        public Dictionary<string,int> DocumentFrequency { get; set; }
-        public Dictionary<string,int> WordsNumber { get; set; }
+        public Dictionary<string, int> DocumentFrequency { get; set; }
+        public Dictionary<string, int> WordsNumber { get; set; }
 
         public KeyWordsExtractor(List<PreprocessedArticle> articles)
         {
@@ -37,39 +37,23 @@ namespace ArticlesClassifactionCore.Features
         }
 
 
-        public Dictionary<string, double> CalculateTFIDF(PreprocessedArticle article)
+        public double CalculateTFIDF(string word)
         {
-            Dictionary<string,double> dictionary=new Dictionary<string, double>();
-            
-            Dictionary<string, double> termFrequencies = TermFrequency(article);
-            foreach (string s in article.Words.Distinct())
+            double result = 0;
+            foreach (PreprocessedArticle preprocessedArticle in Articles)
             {
-                dictionary.Add(s,termFrequencies[s]*IDF(s));
+                result += TermFrequency(preprocessedArticle, word) * IDF(word);
             }
-
-            return dictionary;
+            return result;
         }
 
         private double IDF(string word)
         {
             return Math.Log(Articles.Count / (double)DocumentFrequency[word]);
         }
-        private static Dictionary<string, double> TermFrequency(PreprocessedArticle article)
+        private static double TermFrequency(PreprocessedArticle article, string word)
         {
-            Dictionary<string, double> distinctWords = new Dictionary<string, double>();
-            foreach (string word in article.Words)
-            {
-                if (distinctWords.ContainsKey(word))
-                    distinctWords[word]++;
-                else
-                    distinctWords.Add(word, 1);
-            }
-
-            foreach (string s in distinctWords.Keys.ToList())
-            {
-                distinctWords[s] /= article.Words.Count;
-            }
-            return distinctWords;
+            return article.Words.Where(c => c == word).ToList().Count / (double)article.Words.Count;
         }
 
         private void CalculateDocumentFrequency()
@@ -78,7 +62,7 @@ namespace ArticlesClassifactionCore.Features
             List<string> distinctWords = Articles.SelectMany(t => t.Words).Distinct().ToList();
             foreach (string word in distinctWords)
             {
-                dictionary.Add(word,0);
+                dictionary.Add(word, 0);
             }
 
             foreach (PreprocessedArticle knnArticle in Articles)

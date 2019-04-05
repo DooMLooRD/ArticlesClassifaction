@@ -102,10 +102,10 @@
     <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogContext.cs" />
     <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogResult.cs" />
     <Compile Include="Controls\ProgressDialog\ProgressDialog\ProgressDialogSettings.cs" />
+    <Compile Include="ViewModels\PrecRecVM.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\ExtractorVM.cs" />
-    <Compile Include="ViewModels\FeatureVM.cs" />
     <Compile Include="ViewModels\KeyWordVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="ViewModels\ResultVM.cs" />

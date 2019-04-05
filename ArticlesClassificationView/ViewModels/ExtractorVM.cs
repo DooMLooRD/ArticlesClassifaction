@@ -14,6 +14,5 @@ namespace ArticlesClassificationView.ViewModels
     {
         public IFeatureExtractor FeatureExtractor { get; set; }
         public bool IsChecked { get; set; }
-        public List<CheckBoxVM> Features { get; set; }
     }
 }

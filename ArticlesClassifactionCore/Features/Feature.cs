@@ -9,6 +9,5 @@ namespace ArticlesClassifactionCore.Features
     public class Feature
     {
         public string Name { get; set; }
-        public bool IsChecked { get; set; }
     }
 }

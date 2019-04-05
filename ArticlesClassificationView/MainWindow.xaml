@@ -13,7 +13,7 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="MainWindow" Height="600" Width="1100">
+        Title="MainWindow" Height="600" Width="1200">
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -240,47 +240,26 @@
                                     Margin="5 0 5 5"
                                     ItemsSource="{Binding Metrics}" 
                                     SelectedItem="{Binding SelectedMetric}" />
-                                    <TextBlock 
-                                    Margin="5 0" Text="Wybierz miarę podobieństwa:"/>
-                                    <ComboBox 
-                                    Margin="5 0 5 5" 
-                                    ItemsSource="{Binding SimilarityFunctions}" 
-                                    SelectedItem="{Binding SelectedSimilarityFunction}" />
-                                    <TextBlock 
-                                    Margin="5 0" Text="Wybierz ekstraktory cech:"/>
-                                    <ListBox 
+                                    <Expander
+                                        Header="Ekstraktory cech">
+                                        <ListBox 
                                     Margin="5 0 5 5" 
                                     ItemsSource="{Binding Extractors}">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <Expander
-                                                    HorizontalAlignment="Stretch">
-                                                    <Expander.Header>
-                                                        <CheckBox 
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <CheckBox 
                                                             Content="{Binding FeatureExtractor}"
-                                                            IsChecked="{Binding IsChecked}"/>
-                                                    </Expander.Header>
-                                                    <StackPanel
-                                                        Orientation="Vertical"
-                                                        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                                                        <ListBox 
-                                                            Margin="5" 
-                                                            ItemsSource="{Binding Features}" 
-                                                            MinHeight="200" 
-                                                            MaxHeight="200">
-                                                            <ListBox.ItemTemplate>
-                                                                <DataTemplate>
-                                                                    <CheckBox 
-                                                                        Content="{Binding Name}" 
-                                                                        IsChecked="{Binding IsChecked}"/>
-                                                                </DataTemplate>
-                                                            </ListBox.ItemTemplate>
-                                                        </ListBox>
-                                                    </StackPanel>
-                                                </Expander>
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
+                                                            IsChecked="{Binding IsChecked}">
+                                                        <CheckBox.ContentTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock TextWrapping="Wrap" Text="{Binding }"></TextBlock>
+                                                            </DataTemplate>
+                                                        </CheckBox.ContentTemplate>
+                                                    </CheckBox>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                    </Expander>
                                     <TextBox
                                         Margin="5" 
                                         materialDesign:HintAssist.Hint="Parametr K"
@@ -314,73 +293,124 @@
                 VerticalAlignment="Stretch"
                 materialDesign:ShadowAssist.ShadowDepth="Depth2"
                 Margin="5">
-                <StackPanel>
-                    <TextBlock 
+                <ScrollViewer
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock 
                         Margin="5 10 5 10" 
                         Text="Wyniki" 
                         FontSize="15" 
                         FontWeight="Bold"/>
-                    <!-- Key Words-->
-                    <Expander
+                        <!-- Key Words-->
+                        <Expander
                         Header="Słowa kluczowe">
-                        <ListView
+                            <ListView
                             MaxHeight="200"
                             MinHeight="200"
                             VerticalContentAlignment="Top" 
                             ItemsSource="{Binding KeyWords}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn
                                         Width="150"
                                         DisplayMemberBinding="{Binding Tag}"
                                         Header="Tag" />
-                                    <GridViewColumn
+                                        <GridViewColumn
                                         Width="150"
                                         DisplayMemberBinding="{Binding Word}"
                                         Header="Word" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Expander>
-                    <!-- End Key Words-->
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Expander>
+                        <!-- End Key Words-->
 
-                    <!-- Classification result -->
-                    <Expander
+                        <!-- Classification result -->
+                        <Expander
                         Header="Klasyfikacja">
-                        <ListView
-                            ItemsSource="{Binding Results}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn
-                                        Width="100"
-                                        DisplayMemberBinding="{Binding Tag}"
-                                        Header="Tag" />
-                                    <GridViewColumn
-                                        Width="90"
-                                        DisplayMemberBinding="{Binding All}"
-                                        Header="All" />
-                                    <GridViewColumn
-                                        Width="90"
-                                        DisplayMemberBinding="{Binding Tp}">
-                                        <GridViewColumn.Header>
-                                            <TextBlock TextWrapping="Wrap" Text="True Positive"></TextBlock>
-                                        </GridViewColumn.Header>
-                                    </GridViewColumn>
-                                    <GridViewColumn
-                                        Width="90"
-                                        DisplayMemberBinding="{Binding Tn}">
-                                        <GridViewColumn.Header>
-                                            <TextBlock TextWrapping="Wrap" Text="False Negative"></TextBlock>
-                                        </GridViewColumn.Header>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Expander>
-                    <!-- Classification result -->
+                            <StackPanel>
+                                <Expander
+                                Header="All-TP-FP">
+                                    <StackPanel>
+                                        <TextBox
+                                            Margin="5" 
+                                            materialDesign:HintAssist.Hint="Overall Accuracy"
+                                            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                            Text="{Binding Accuracy, StringFormat=P}"/>
+                                        <ListView
+                                    ItemsSource="{Binding Results}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn
+                                                Width="100"
+                                                DisplayMemberBinding="{Binding Tag}"
+                                                Header="Tag" />
+                                                    <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding All}"
+                                                Header="All" />
+                                                    <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Tp}">
+                                                        <GridViewColumn.Header>
+                                                            <TextBlock TextWrapping="Wrap" Text="True Positive"></TextBlock>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn
+                                                Width="90"
+                                                DisplayMemberBinding="{Binding Fp}">
+                                                        <GridViewColumn.Header>
+                                                            <TextBlock TextWrapping="Wrap" Text="False Positive"></TextBlock>
+                                                        </GridViewColumn.Header>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </StackPanel>
+                                    
 
-                </StackPanel>
+                                </Expander>
+                                <Expander
+                                Header="Precision and Recall ">
+                                    <ListView
+                                    ItemsSource="{Binding PrecisionRecall}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn
+                                                Width="150"
+                                                DisplayMemberBinding="{Binding Tag}"
+                                                Header="Tag" />
+                                                <GridViewColumn
+                                                Width="130"
+                                                DisplayMemberBinding="{Binding Precision, StringFormat=P}"
+                                                Header="Precision" />
+                                                <GridViewColumn
+                                                    Width="130"
+                                                    DisplayMemberBinding="{Binding Recall, StringFormat=P}"
+                                                    Header="Recall" />
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Expander>
+                                <Expander
+                                    Header="Confusion Matrix">
+                                    <TextBox
+                                        FontFamily="Courier New"
+                                        Margin="0 0 5 0"
+                                        AcceptsReturn="True"
+                                        VerticalScrollBarVisibility="Auto"
+                                        HorizontalScrollBarVisibility="Auto"
+                                        Height="120"
+                                        Text="{Binding ConfusionMatrix}"/>
+                                </Expander>
+                            </StackPanel>
 
+
+                        </Expander>
+                        <!-- Classification result -->
+
+                    </StackPanel>
+                </ScrollViewer>
             </materialDesign:ColorZone>
         </Border>
         <!-- End Result Page -->

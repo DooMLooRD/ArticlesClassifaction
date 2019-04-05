@@ -12,6 +12,6 @@ namespace ArticlesClassificationView.ViewModels
         public string Tag { get; set; }
         public int All { get; set; }
         public int Tp { get; set; }
-        public int Tn { get; set; }
+        public int Fp { get; set; }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ArticlesClassificationView.ViewModels
 {
-    class FeatureVM
+    public class PrecRecVM
     {
-        public string Name { get; set; }
-        public bool IsChecked { get; set; }
+        public string Tag { get; set; }
+        public double Precision { get; set; }
+        public double Recall { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace ArticlesClassifactionCore.Features
                 {
                     if (s != tag)
                     {
-                        notInTag.AddRange(keyWords[s].Take(150));
+                        notInTag.AddRange(keyWords[s].Take((int)(keyWords[s].Count * 0.02)));
                     }
                 }
                 var distinctInTag = keyWords[tag].Except(notInTag).ToList();

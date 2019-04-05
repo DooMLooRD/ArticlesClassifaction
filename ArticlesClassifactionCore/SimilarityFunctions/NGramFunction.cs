@@ -26,8 +26,8 @@ namespace ArticlesClassifactionCore.SimilarityFunctions
             int n = N;
             if (smallestLetterNumber < N)
                 n = smallestLetterNumber;
-            int substringsNumber = word2.Length - n + 1;
-            int occur = 0;
+            double substringsNumber = word2.Length - n + 1;
+            double occur = 0;
             for (int i = 0; i < substringsNumber; i++)
             {
                 string ngram = word2.Substring(i, n);
