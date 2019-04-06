@@ -44,7 +44,9 @@ namespace ArticlesClassifactionCore
                 distinctNeighborsCount.Where(t => t.Item2 == distinctNeighborsCount[0].Item2).ToList();
             if (neighborsWithSameCount.Count != 1)
             {
-                var distinctNeighborsSum = neighborsWithSameCount.GroupBy(t => t.Item1).Select(g => (g.Key, g.Sum(t => t.Item2))).OrderBy(e => e.Item2).ToList();
+                var orderedNeighborsWithSameCount =
+                    orderedNeighbors.Where(c => neighborsWithSameCount.Select(d => d.Item1).Contains(c.Item1));
+                var distinctNeighborsSum = orderedNeighborsWithSameCount.GroupBy(t => t.Item1).Select(g => (g.Key, g.Sum(t => t.Item2))).OrderBy(e => e.Item2).ToList();
                 knnArticle.PredictedLabel = distinctNeighborsSum[0].Item1;
                 ClassifiedArticles.Add(knnArticle);
                 return distinctNeighborsSum[0].Item1;

@@ -42,3 +42,131 @@ west-germany  49,01%  86,84%
 Overall accuracy:  86,36%
 Time: 125399
 -------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Euclidean Metric
+Parameter K: 15
+Cold start data: 15
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2897  60    113    1129            81      24
+            uk   59 175     21      15             9      12
+         japan   15   3    168       4             6       1
+        canada  129   2      6     160             2       3
+  west-germany    4   3      2       1           102       7
+        france   11   1      2       0             1      59
+Precision(1) and recall(2):
+         usa  93%  67,31%
+          uk  71,72%  60,14%
+       japan  53,85%  85,28%
+      canada  12,22%  52,98%
+west-germany  50,75%  85,71%
+      france  55,66%  79,73%
+Overall accuracy:  67,35%
+Time: 170209
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Euclidean Metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3915  59     64     152            88      21
+            uk   67 169     24       8             7      11
+         japan   32   3    151       1             5       0
+        canada  131   3      3     153             5       2
+  west-germany    9   3      1       0            97       4
+        france   12   1      0       0             1      55
+Precision(1) and recall(2):
+         usa  93,98%  91,07%
+          uk  71,01%  59,09%
+       japan  62,14%  78,65%
+      canada  48,73%  51,52%
+west-germany  47,78%  85,09%
+      france  59,14%  79,71%
+Overall accuracy:  86,36%
+Time: 59754
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Euclidean Metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 1402  76    139    2505           116      61
+            uk   40 166     14      30            19      17
+         japan   15   4    144      14            12       3
+        canada   76   4      2     212             1       2
+  west-germany    1   4      7       4            95       3
+        france    5   1      2       3             1      57
+Precision(1) and recall(2):
+         usa  91,1%  32,61%
+          uk  65,1%  58,04%
+       japan  46,75%  75%
+      canada  7,66%  71,38%
+west-germany  38,93%  83,33%
+      france  39,86%  82,61%
+Overall accuracy:  39,49%
+Time: 119339
+-------------------------------------------

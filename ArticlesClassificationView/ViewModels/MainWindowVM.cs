@@ -156,6 +156,7 @@ namespace ArticlesClassificationView.ViewModels
 
 
         #region 1. Loading Data
+
         public async void LoadFiles()
         {
             DataStatus = "1. Loading Data...";
