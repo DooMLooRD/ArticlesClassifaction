@@ -9,38 +9,154 @@ canada
 west-germany
 france
 Percent of learning data: 60
-Key words extractor: TermFrequency
-Key words Per Tag: 15
+Key words extractor: DocumentFrequency
+Key words Per Tag: 5
 Feature Extractors:
-Count of distinct key words
-Count of distinct key words at first 30% of text
 Sum of Binary Function Similarity Article-KeyWords
 Sum of Binary Function Similarity Article-KeyWords at first 30% of text
 Sum of N-Gram Function Similarity Article-KeyWords
 Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
-Sum of Levenshtein Function Similarity Article-KeyWords
-Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
-Metric: Euclidean Metric
+Metric: Taxicab metric
 Parameter K: 15
 Cold start data: 20
 RESULTS
 Confusion Matrix:
                 usa  uk  japan  canada  west-germany  france
-           usa 3903  63     63     159            88      23
-            uk   61 173     22      11             7      12
-         japan   30   3    153       1             5       0
-        canada  130   2      3     157             2       3
-  west-germany    7   3      0       0            99       5
-        france   12   1      0       0             1      55
+           usa 2257  23     42    1959            15       3
+            uk   72 159      4      46             2       3
+         japan   53   2    101      31             5       0
+        canada   62   0      9     226             0       0
+  west-germany   14   4      2       0            93       1
+        france   13   0      1       5             0      50
 Precision(1) and recall(2):
-         usa  94,21%  90,79%
-          uk  70,61%  60,49%
-       japan  63,49%  79,69%
-      canada  47,87%  52,86%
-west-germany  49,01%  86,84%
-      france  56,12%  79,71%
-Overall accuracy:  86,36%
-Time: 125399
+         usa  91,34%  52,5%
+          uk  84,57%  55,59%
+       japan  63,52%  52,6%
+      canada  9,97%  76,09%
+west-germany  80,87%  81,58%
+      france  87,72%  72,46%
+Overall accuracy:  54,9%
+Time: 24660
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: DocumentFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3866  32     51     286            34      30
+            uk   66 191      5       9             3      12
+         japan   77   2     89       1            12      11
+        canada  131   5      1     159             0       1
+  west-germany   13   3      3       0            91       4
+        france    9   1      3       0             0      56
+Precision(1) and recall(2):
+         usa  92,89%  89,93%
+          uk  81,62%  66,78%
+       japan  58,55%  46,35%
+      canada  34,95%  53,54%
+west-germany  65%  79,82%
+      france  49,12%  81,16%
+Overall accuracy:  84,69%
+Time: 46686
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: DocumentFrequency
+Key words Per Tag: 30
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3317  67     66     773            35      41
+            uk   63 190      8       8             2      15
+         japan   57  10     91      11            12      11
+        canada   89   4      5     198             0       1
+  west-germany    9   6      3       0            88       8
+        france    9   1      1       0             0      58
+Precision(1) and recall(2):
+         usa  93,59%  77,16%
+          uk  68,35%  66,43%
+       japan  52,3%  47,4%
+      canada  20%  66,67%
+west-germany  64,23%  77,19%
+      france  43,28%  84,06%
+Overall accuracy:  74,99%
+Time: 70470
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 5
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 1405  25     21    2827             6      15
+            uk   27 132     12      98             6      11
+         japan   16   2     75      92             2       5
+        canada   39   0      1     256             0       1
+  west-germany    6   1      1      11            89       6
+        france    2   0      0       9             0      58
+Precision(1) and recall(2):
+         usa  93,98%  32,68%
+          uk  82,5%  46,15%
+       japan  68,18%  39,06%
+      canada  7,77%  86,2%
+west-germany  86,41%  78,07%
+      france  60,42%  84,06%
+Overall accuracy:  38,33%
+Time: 21326
 -------------------------------------------
 -------------------------------------------
 Category: places
@@ -56,35 +172,856 @@ Percent of learning data: 60
 Key words extractor: TermFrequency
 Key words Per Tag: 15
 Feature Extractors:
-Count of distinct key words
-Count of distinct key words at first 30% of text
 Sum of Binary Function Similarity Article-KeyWords
 Sum of Binary Function Similarity Article-KeyWords at first 30% of text
 Sum of N-Gram Function Similarity Article-KeyWords
 Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
-Sum of Levenshtein Function Similarity Article-KeyWords
-Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4136  30     24      39            43      27
+            uk   58 202      8       5             4       9
+         japan   93   3     74       1            10      11
+        canada  154   5      1     136             1       0
+  west-germany   14   4      2       0            88       6
+        france    7   1      2       0             0      59
+Precision(1) and recall(2):
+         usa  92,69%  96,21%
+          uk  82,45%  70,63%
+       japan  66,67%  38,54%
+      canada  75,14%  45,79%
+west-germany  60,27%  77,19%
+      france  52,68%  85,51%
+Overall accuracy:  89,31%
+Time: 44840
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 30
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4089  32     67      39            39      33
+            uk   84 175      4       3             6      14
+         japan   87   7     75       2             9      12
+        canada  152   3      2     136             1       3
+  west-germany   15   4      1       0            90       4
+        france    8   1      1       0             0      59
+Precision(1) and recall(2):
+         usa  92,2%  95,12%
+          uk  78,83%  61,19%
+       japan  50%  39,06%
+      canada  75,56%  45,79%
+west-germany  62,07%  78,95%
+      france  47,2%  85,51%
+Overall accuracy:  87,96%
+Time: 70289
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
 Metric: Euclidean Metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4092  34     49      43            50      31
+            uk   54 207      9       5             3       8
+         japan   82   4     83       1            11      11
+        canada  149   5      4     138             1       0
+  west-germany   13   3      2       0            89       7
+        france    7   1      2       0             0      59
+Precision(1) and recall(2):
+         usa  93,06%  95,18%
+          uk  81,5%  72,38%
+       japan  55,7%  43,23%
+      canada  73,8%  46,46%
+west-germany  57,79%  78,07%
+      france  50,86%  85,51%
+Overall accuracy:  88,8%
+Time: 58781
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Chebyshev Metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4141  24     37      27            47      23
+            uk  109 160      7       0             3       7
+         japan   98   5     71       1            11       6
+        canada  184   3      2     107             1       0
+  west-germany   21   3      2       0            82       6
+        france   14   0      0       0             0      55
+Precision(1) and recall(2):
+         usa  90,67%  96,32%
+          uk  82,05%  55,94%
+       japan  59,66%  36,98%
+      canada  79,26%  36,03%
+west-germany  56,94%  71,93%
+      france  56,7%  79,71%
+Overall accuracy:  87,81%
+Time: 51804
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4136  30     24      39            43      27
+            uk   58 202      8       5             4       9
+         japan   93   3     74       1            10      11
+        canada  154   5      1     136             1       0
+  west-germany   14   4      2       0            88       6
+        france    7   1      2       0             0      59
+Precision(1) and recall(2):
+         usa  92,69%  96,21%
+          uk  82,45%  70,63%
+       japan  66,67%  38,54%
+      canada  75,14%  45,79%
+west-germany  60,27%  77,19%
+      france  52,68%  85,51%
+Overall accuracy:  89,31%
+Time: 40691
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 1
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2204 109    392    1500            53      41
+            uk   44 189     15      23             8       7
+         japan   30   5    114      23            10      10
+        canada   53   9      9     222             3       1
+  west-germany    8   5      3       2            88       8
+        france    3   0      3       4             0      59
+Precision(1) and recall(2):
+         usa  94,11%  51,27%
+          uk  59,62%  66,08%
+       japan  21,27%  59,38%
+      canada  12,51%  74,75%
+west-germany  54,32%  77,19%
+      france  46,83%  85,51%
+Overall accuracy:  54,71%
+Time: 43730
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 5
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2247  37    867    1074            43      31
+            uk   30 207     27       7             4      11
+         japan   31   5    128       7            10      11
+        canada   63   8     24     200             1       1
+  west-germany    8   4      7       0            88       7
+        france    3   1      4       1             0      60
+Precision(1) and recall(2):
+         usa  94,33%  52,27%
+          uk  79,01%  72,38%
+       japan  12,11%  66,67%
+      canada  15,52%  67,34%
+west-germany  60,27%  77,19%
+      france  49,59%  86,96%
+Overall accuracy:  55,74%
+Time: 41344
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 10
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3063  31     48    1085            42      30
+            uk   53 205      9       6             4       9
+         japan   67   4     90      10            10      11
+        canada   90   7      2     197             1       0
+  west-germany   13   4      2       0            89       6
+        france    6   1      2       1             0      59
+Precision(1) and recall(2):
+         usa  93,04%  71,25%
+          uk  81,35%  71,68%
+       japan  58,82%  46,88%
+      canada  15,17%  66,33%
+west-germany  60,96%  78,07%
+      france  51,3%  85,51%
+Overall accuracy:  70,44%
+Time: 38826
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4136  30     24      39            43      27
+            uk   58 202      8       5             4       9
+         japan   93   3     74       1            10      11
+        canada  154   5      1     136             1       0
+  west-germany   14   4      2       0            88       6
+        france    7   1      2       0             0      59
+Precision(1) and recall(2):
+         usa  92,69%  96,21%
+          uk  82,45%  70,63%
+       japan  66,67%  38,54%
+      canada  75,14%  45,79%
+west-germany  60,27%  77,19%
+      france  52,68%  85,51%
+Overall accuracy:  89,31%
+Time: 43690
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 30
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4160  29      5      36            43      26
+            uk   72 195      0       5             4      10
+         japan  169   3      1       1            10       8
+        canada  160   5      0     130             1       1
+  west-germany   15   3      1       0            88       7
+        france    9   1      0       0             0      59
+Precision(1) and recall(2):
+         usa  90,73%  96,77%
+          uk  82,63%  68,18%
+       japan  14,29%  0,52%
+      canada  75,58%  43,77%
+west-germany  60,27%  77,19%
+      france  53,15%  85,51%
+Overall accuracy:  88,13%
+Time: 39321
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 50
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4274   3      1       0             1      20
+            uk  278   0      0       0             0       8
+         japan  187   0      0       0             0       5
+        canada  296   0      0       0             0       1
+  west-germany  108   0      0       0             0       6
+        france   15   0      0       0             0      54
+Precision(1) and recall(2):
+         usa  82,86%  99,42%
+          uk  0%  0%
+       japan  0%  0%
+      canada  NaN%  0%
+west-germany  0%  0%
+      france  57,45%  78,26%
+Overall accuracy:  82,33%
+Time: 43686
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 5
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4314   0      0       0             0       0
+            uk  301   0      0       0             0       0
+         japan  207   0      0       0             0       0
+        canada  312   0      0       0             0       0
+  west-germany  129   0      0       0             0       0
+        france   84   0      0       0             0       0
+Precision(1) and recall(2):
+         usa  80,68%  100%
+          uk  NaN%  0%
+       japan  NaN%  0%
+      canada  NaN%  0%
+west-germany  NaN%  0%
+      france  NaN%  0%
+Overall accuracy:  80,68%
+Time: 40614
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 10
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2974  31     21    1217            43      23
+            uk   35 208      8      32             4       9
+         japan   29   3     75      76            10       9
+        canada  125   4      1     176             1       0
+  west-germany    9   5      3       6            95       6
+        france    3   1      2       6             0      67
+Precision(1) and recall(2):
+         usa  93,67%  69,02%
+          uk  82,54%  70,27%
+       japan  68,18%  37,13%
+      canada  11,63%  57,33%
+west-germany  62,09%  76,61%
+      france  58,77%  84,81%
+Overall accuracy:  67,61%
+Time: 37941
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
 Parameter K: 15
 Cold start data: 15
 RESULTS
 Confusion Matrix:
                 usa  uk  japan  canada  west-germany  france
-           usa 2897  60    113    1129            81      24
-            uk   59 175     21      15             9      12
-         japan   15   3    168       4             6       1
-        canada  129   2      6     160             2       3
-  west-germany    4   3      2       1           102       7
-        france   11   1      2       0             1      59
+           usa 3089  32     29    1086            43      25
+            uk   33 205      8      32             4       9
+         japan   32   3     78      63            10      11
+        canada  124   5      1     171             1       0
+  west-germany    8   4      2       6            93       6
+        france    4   1      2       4             0      63
 Precision(1) and recall(2):
-         usa  93%  67,31%
-          uk  71,72%  60,14%
-       japan  53,85%  85,28%
-      canada  12,22%  52,98%
-west-germany  50,75%  85,71%
-      france  55,66%  79,73%
-Overall accuracy:  67,35%
-Time: 170209
+         usa  93,89%  71,77%
+          uk  82%  70,45%
+       japan  65%  39,59%
+      canada  12,56%  56,62%
+west-germany  61,59%  78,15%
+      france  55,26%  85,14%
+Overall accuracy:  69,96%
+Time: 41203
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 30
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4101  30     46      42            43      27
+            uk   54 198      8       5             4       7
+         japan   80   3     78       1            10      10
+        canada  149   5      2     130             1       0
+  west-germany   13   4      1       0            80       6
+        france    6   1      2       0             0      50
+Precision(1) and recall(2):
+         usa  93,14%  95,62%
+          uk  82,16%  71,74%
+       japan  56,93%  42,86%
+      canada  73,03%  45,3%
+west-germany  57,97%  76,92%
+      france  50%  84,75%
+Overall accuracy:  89,22%
+Time: 39542
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 50
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4053  29     62      47            47      31
+            uk   52 179      8       5             5       7
+         japan   60   2     80       0            11       9
+        canada  135   5      6     121             0       0
+  west-germany   10   4      1       0            63       6
+        france    4   1      2       0             0      32
+Precision(1) and recall(2):
+         usa  93,95%  94,94%
+          uk  81,36%  69,92%
+       japan  50,31%  49,38%
+      canada  69,94%  45,32%
+west-germany  50%  75%
+      france  37,65%  82,05%
+Overall accuracy:  89,19%
+Time: 37792
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 100
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3053  30    333     719            48      36
+            uk   39 143     10       7             3       4
+         japan   27   1     64       6             8       6
+        canada   59   4     12     142             0       0
+  west-germany    5   1      0       0            27       1
+        france    0   0      0       0             0       0
+Precision(1) and recall(2):
+         usa  95,92%  72,36%
+          uk  79,89%  69,42%
+       japan  15,27%  57,14%
+      canada  16,25%  65,44%
+west-germany  31,4%  79,41%
+      france  0%  NaN%
+Overall accuracy:  71,62%
+Time: 39561
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of N-Gram Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3381 176    307      66           180     189
+            uk   72 175      8       5            12      14
+         japan   57  14     87       5             9      20
+        canada  172  16      7      90             4       8
+  west-germany   16   7      2       0            82       7
+        france    9   3      3       1             4      49
+Precision(1) and recall(2):
+         usa  91,21%  78,65%
+          uk  44,76%  61,19%
+       japan  21,01%  45,31%
+      canada  53,89%  30,3%
+west-germany  28,18%  71,93%
+      france  17,07%  71,01%
+Overall accuracy:  73,5%
+Time: 32345
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Levenshtein Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2376  24     18     684          1159      38
+            uk  176  10      0       8            87       5
+         japan  104   4      0      10            59      15
+        canada  184   1      2      45            57       8
+  west-germany   27   4      0       1            82       0
+        france   28   0      0       0            33       8
+Precision(1) and recall(2):
+         usa  82,07%  55,27%
+          uk  23,26%  3,5%
+       japan  0%  0%
+      canada  6,02%  15,15%
+west-germany  5,55%  71,93%
+      france  10,81%  11,59%
+Overall accuracy:  47,96%
+Time: 42358
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3943  48    105      75            86      42
+            uk   49 200     10       5             4      18
+         japan   50   6    109       3            15       9
+        canada  129   7     14     146             0       1
+  west-germany   13   7      1       0            86       7
+        france   10   0      2       0             2      55
+Precision(1) and recall(2):
+         usa  94,02%  91,72%
+          uk  74,63%  69,93%
+       japan  45,23%  56,77%
+      canada  63,76%  49,16%
+west-germany  44,56%  75,44%
+      france  41,67%  79,71%
+Overall accuracy:  86,34%
+Time: 9147
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of N-Gram Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3381 176    307      66           180     189
+            uk   72 175      8       5            12      14
+         japan   57  14     87       5             9      20
+        canada  172  16      7      90             4       8
+  west-germany   16   7      2       0            82       7
+        france    9   3      3       1             4      49
+Precision(1) and recall(2):
+         usa  91,21%  78,65%
+          uk  44,76%  61,19%
+       japan  21,01%  45,31%
+      canada  53,89%  30,3%
+west-germany  28,18%  71,93%
+      france  17,07%  71,01%
+Overall accuracy:  73,5%
+Time: 28706
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Levenshtein Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 2376  24     18     684          1159      38
+            uk  176  10      0       8            87       5
+         japan  104   4      0      10            59      15
+        canada  184   1      2      45            57       8
+  west-germany   27   4      0       1            82       0
+        france   28   0      0       0            33       8
+Precision(1) and recall(2):
+         usa  82,07%  55,27%
+          uk  23,26%  3,5%
+       japan  0%  0%
+      canada  6,02%  15,15%
+west-germany  5,55%  71,93%
+      france  10,81%  11,59%
+Overall accuracy:  47,96%
+Time: 43020
 -------------------------------------------
 -------------------------------------------
 Category: places
@@ -101,30 +1038,64 @@ Key words extractor: TermFrequency
 Key words Per Tag: 15
 Feature Extractors:
 Count of distinct key words
-Count of distinct key words at first 30% of text
-Sum of N-Gram Function Similarity Article-KeyWords
-Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
-Metric: Euclidean Metric
+Metric: Taxicab metric
 Parameter K: 15
 Cold start data: 20
 RESULTS
 Confusion Matrix:
                 usa  uk  japan  canada  west-germany  france
-           usa 3915  59     64     152            88      21
-            uk   67 169     24       8             7      11
-         japan   32   3    151       1             5       0
-        canada  131   3      3     153             5       2
-  west-germany    9   3      1       0            97       4
-        france   12   1      0       0             1      55
+           usa 4024  47     66      64            70      28
+            uk   62 193      8       4             4      15
+         japan   70   4     95       2            12       9
+        canada  155   8      6     126             1       1
+  west-germany   21   7      8       0            72       6
+        france   11   0      1       0             2      55
 Precision(1) and recall(2):
-         usa  93,98%  91,07%
-          uk  71,01%  59,09%
-       japan  62,14%  78,65%
-      canada  48,73%  51,52%
-west-germany  47,78%  85,09%
-      france  59,14%  79,71%
-Overall accuracy:  86,36%
-Time: 59754
+         usa  92,65%  93,6%
+          uk  74,52%  67,48%
+       japan  51,63%  49,48%
+      canada  64,29%  42,42%
+west-germany  44,72%  63,16%
+      france  48,25%  79,71%
+Overall accuracy:  86,84%
+Time: 9891
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Sum of Binary Function Similarity Article-KeyWords
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 3943  48    105      75            86      42
+            uk   49 200     10       5             4      18
+         japan   50   6    109       3            15       9
+        canada  129   7     14     146             0       1
+  west-germany   13   7      1       0            86       7
+        france   10   0      2       0             2      55
+Precision(1) and recall(2):
+         usa  94,02%  91,72%
+          uk  74,63%  69,93%
+       japan  45,23%  56,77%
+      canada  63,76%  49,16%
+west-germany  44,56%  75,44%
+      france  41,67%  79,71%
+Overall accuracy:  86,34%
+Time: 9106
 -------------------------------------------
 -------------------------------------------
 Category: places
@@ -148,25 +1119,355 @@ Sum of N-Gram Function Similarity Article-KeyWords
 Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
 Sum of Levenshtein Function Similarity Article-KeyWords
 Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
-Metric: Euclidean Metric
+Metric: Taxicab metric
 Parameter K: 15
 Cold start data: 20
 RESULTS
 Confusion Matrix:
                 usa  uk  japan  canada  west-germany  france
-           usa 1402  76    139    2505           116      61
-            uk   40 166     14      30            19      17
-         japan   15   4    144      14            12       3
-        canada   76   4      2     212             1       2
-  west-germany    1   4      7       4            95       3
-        france    5   1      2       3             1      57
+           usa 3334  28     75     785            46      31
+            uk   52 203      9       8             3      11
+         japan   62   4    102       8            10       6
+        canada   93   7      3     193             1       0
+  west-germany   12   4      2       0            89       7
+        france    5   1      2       1             0      60
 Precision(1) and recall(2):
-         usa  91,1%  32,61%
-          uk  65,1%  58,04%
-       japan  46,75%  75%
-      canada  7,66%  71,38%
-west-germany  38,93%  83,33%
-      france  39,86%  82,61%
-Overall accuracy:  39,49%
-Time: 119339
+         usa  93,7%  77,55%
+          uk  82,19%  70,98%
+       japan  52,85%  53,12%
+      canada  19,4%  64,98%
+west-germany  59,73%  78,07%
+      france  52,17%  86,96%
+Overall accuracy:  75,73%
+Time: 92865
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4050  55     85      36            46      27
+            uk   46 210     11       4             3      12
+         japan   65   4    107       1            10       5
+        canada  155   7      8     126             1       0
+  west-germany   12   6      3       0            86       7
+        france   10   0      2       0             0      57
+Precision(1) and recall(2):
+         usa  93,36%  94,21%
+          uk  74,47%  73,43%
+       japan  49,54%  55,73%
+      canada  75,45%  42,42%
+west-germany  58,9%  75,44%
+      france  52,78%  82,61%
+Overall accuracy:  88,19%
+Time: 16456
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4162  25     15      34            39      24
+            uk   66 194      8       5             4       9
+         japan   99   3     71       1            10       8
+        canada  166   5      0     125             1       0
+  west-germany   12   4      2       0            90       6
+        france   10   0      1       0             0      58
+Precision(1) and recall(2):
+         usa  92,18%  96,81%
+          uk  83,98%  67,83%
+       japan  73,2%  36,98%
+      canada  75,76%  42,09%
+west-germany  62,5%  78,95%
+      france  55,24%  84,06%
+Overall accuracy:  89,4%
+Time: 42679
+-------------------------------------------
+-------------------------------------------
+Category: places
+
+Tags:
+usa
+uk
+japan
+canada
+west-germany
+france
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+                usa  uk  japan  canada  west-germany  france
+           usa 4106  28     45      46            46      28
+            uk   55 203      8       6             3      11
+         japan   94   4     77       1            10       6
+        canada  146   7      0     143             1       0
+  west-germany   12   4      2       0            89       7
+        france    6   1      2       0             0      60
+Precision(1) and recall(2):
+         usa  92,92%  95,51%
+          uk  82,19%  70,98%
+       japan  57,46%  40,1%
+      canada  72,96%  48,15%
+west-germany  59,73%  78,07%
+      france  53,57%  86,96%
+Overall accuracy:  88,99%
+Time: 49218
+-------------------------------------------
+-------------------------------------------
+Category: topics
+
+Tags:
+earn
+acq
+money-fx
+grain
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 20
+RESULTS
+Confusion Matrix:
+            earn  acq  money-fx  grain
+      earn  1277   89        11      5
+       acq    23  869        12      7
+  money-fx     1   19        75      0
+     grain     0    0         0      0
+Precision(1) and recall(2):
+    earn  98,16%  92,4%
+     acq  88,95%  95,39%
+money-fx  76,53%  78,95%
+   grain  0%  NaN%
+Overall accuracy:  93,01%
+Time: 22002
+-------------------------------------------
+-------------------------------------------
+Category: topics
+
+Tags:
+earn
+acq
+money-fx
+grain
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 15
+Cold start data: 10
+RESULTS
+Confusion Matrix:
+            earn  acq  money-fx  grain
+      earn  1280   96        12      4
+       acq    24  877        14      6
+  money-fx     1   19        85      0
+     grain     0    0         0      8
+Precision(1) and recall(2):
+    earn  98,08%  91,95%
+     acq  88,41%  95,22%
+money-fx  76,58%  80,95%
+   grain  44,44%  100%
+Overall accuracy:  92,75%
+Time: 22276
+-------------------------------------------
+-------------------------------------------
+Category: league
+
+Tags:
+PremierLeague
+Bundesliga
+SerieA
+PrimeraDivision
+Ligue1
+PrimeiraLiga
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 5
+Cold start data: 3
+RESULTS
+Confusion Matrix:
+                   PremierLeague  Bundesliga  SerieA  PrimeraDivision  Ligue1  PrimeiraLiga
+    PremierLeague              2           0       0                0       0             0
+       Bundesliga              0           0       0                0       0             0
+           SerieA              0           0       1                0       0             0
+  PrimeraDivision              0           0       0                7       0             0
+           Ligue1              0           0       0                0       6             0
+     PrimeiraLiga              1           0       0                0       0             7
+Precision(1) and recall(2):
+  PremierLeague  66,67%  100%
+     Bundesliga  NaN%  NaN%
+         SerieA  100%  100%
+PrimeraDivision  100%  100%
+         Ligue1  100%  100%
+   PrimeiraLiga  100%  87,5%
+Overall accuracy:  95,83%
+Time: 2016
+-------------------------------------------
+-------------------------------------------
+Category: league
+
+Tags:
+PremierLeague
+Bundesliga
+SerieA
+PrimeraDivision
+Ligue1
+PrimeiraLiga
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 5
+Cold start data: 2
+RESULTS
+Confusion Matrix:
+                   PremierLeague  Bundesliga  SerieA  PrimeraDivision  Ligue1  PrimeiraLiga
+    PremierLeague              2           1       0                0       0             0
+       Bundesliga              0           1       0                0       0             0
+           SerieA              0           0       0                0       0             2
+  PrimeraDivision              0           0       0                8       0             0
+           Ligue1              0           0       0                0       7             0
+     PrimeiraLiga              1           0       0                0       0             8
+Precision(1) and recall(2):
+  PremierLeague  66,67%  66,67%
+     Bundesliga  50%  100%
+         SerieA  NaN%  0%
+PrimeraDivision  100%  100%
+         Ligue1  100%  100%
+   PrimeiraLiga  80%  88,89%
+Overall accuracy:  86,67%
+Time: 2079
+-------------------------------------------
+-------------------------------------------
+Category: league
+
+Tags:
+PremierLeague
+Bundesliga
+SerieA
+PrimeraDivision
+Ligue1
+PrimeiraLiga
+Percent of learning data: 60
+Key words extractor: TermFrequency
+Key words Per Tag: 15
+Feature Extractors:
+Count of distinct key words
+Count of distinct key words at first 30% of text
+Sum of Binary Function Similarity Article-KeyWords
+Sum of Binary Function Similarity Article-KeyWords at first 30% of text
+Sum of N-Gram Function Similarity Article-KeyWords
+Sum of N-Gram Function Similarity Article-KeyWords at first 30% of text
+Sum of Levenshtein Function Similarity Article-KeyWords
+Sum of Levenshtein Function Similarity Article-KeyWords at first 30% of text
+Metric: Taxicab metric
+Parameter K: 4
+Cold start data: 2
+RESULTS
+Confusion Matrix:
+                   PremierLeague  Bundesliga  SerieA  PrimeraDivision  Ligue1  PrimeiraLiga
+    PremierLeague              2           1       0                0       0             0
+       Bundesliga              0           1       0                0       0             0
+           SerieA              0           0       1                0       0             1
+  PrimeraDivision              0           0       0                8       0             0
+           Ligue1              0           0       0                0       7             0
+     PrimeiraLiga              1           0       0                0       0             8
+Precision(1) and recall(2):
+  PremierLeague  66,67%  66,67%
+     Bundesliga  50%  100%
+         SerieA  100%  50%
+PrimeraDivision  100%  100%
+         Ligue1  100%  100%
+   PrimeiraLiga  88,89%  88,89%
+Overall accuracy:  90%
+Time: 2007
 -------------------------------------------

@@ -33,12 +33,13 @@ namespace ArticlesClassifactionCore.Features
                 List<PreprocessedArticle> articles = Articles.Where(t => t.Label == tag).ToList();
                 KeyWordsExtractor extractor = new KeyWordsExtractor(articles);
 
-                List<(string, int)> df = new List<(string, int)>();
+                List<(string, double)> df = new List<(string, double)>();
                 if (selectedExtractor.Equals("TermFrequency"))
-                    df.AddRange(extractor.WordsNumber.Select(t => (t.Key, t.Value)));
+                    df.AddRange(extractor.WordsNumber.Select(t => (t.Key, (double)t.Value)));
                 if (selectedExtractor.Equals("DocumentFrequency"))
-                    df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, t.Value)));
-
+                    df.AddRange(extractor.DocumentFrequency.Select(t => (t.Key, (double)t.Value)));
+                if (selectedExtractor.Equals("TF_IDF"))
+                    df.AddRange(extractor.TF_IDF.Select(t => (t.Key, t.Value)));
                 keyWords.Add(tag, df.OrderByDescending(n => n.Item2).Select(t => t.Item1).ToList());
             }
 
@@ -49,7 +50,7 @@ namespace ArticlesClassifactionCore.Features
                 {
                     if (s != tag)
                     {
-                        notInTag.AddRange(keyWords[s].Take((int)(keyWords[s].Count * 0.02)));
+                        notInTag.AddRange(keyWords[s].Take((int)(keyWords[s].Count * 0.04)));
                     }
                 }
                 var distinctInTag = keyWords[tag].Except(notInTag).ToList();

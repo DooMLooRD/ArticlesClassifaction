@@ -142,7 +142,7 @@ namespace ArticlesClassificationView.ViewModels
             TrainCommand = new RelayCommand(Train);
             ClassifyCommand = new RelayCommand(Classify);
             ToggleBaseCommand = new RelayCommand<bool>(ApplyBase);
-            KeyWordsExtractors = new List<string>() { "TermFrequency", "DocumentFrequency" };
+            KeyWordsExtractors = new List<string>() { "TermFrequency", "DocumentFrequency","TF_IDF" };
             ParamK = 10;
             SelectedKeyWordsExtractor = KeyWordsExtractors[0];
             KeyWordsCount = 30;

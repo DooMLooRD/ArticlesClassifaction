@@ -6,15 +6,26 @@ namespace ArticlesClassifactionCore.Features
 {
     public class KeyWordsExtractor
     {
+        private Dictionary<string, double> _tfIdf;
         public List<PreprocessedArticle> Articles { get; set; }
         public Dictionary<string, int> DocumentFrequency { get; set; }
         public Dictionary<string, int> WordsNumber { get; set; }
+
+        public Dictionary<string, double> TF_IDF    
+        {
+            get  {
+                CalculateTF_IDF();
+            return _tfIdf;
+        }
+            set => _tfIdf = value;
+        }
 
         public KeyWordsExtractor(List<PreprocessedArticle> articles)
         {
             Articles = articles;
             CalculateWordsNumber();
             CalculateDocumentFrequency();
+            //CalculateTF_IDF();
         }
 
         private void CalculateWordsNumber()
@@ -47,6 +58,22 @@ namespace ArticlesClassifactionCore.Features
             return result;
         }
 
+        private void CalculateTF_IDF()
+        {
+            Dictionary<string, double> dictionary = new Dictionary<string, double>();
+            List<string> distinctWords = Articles.SelectMany(t => t.Words).Distinct().ToList();
+            foreach (string distinctWord in distinctWords)
+            {
+                dictionary.Add(distinctWord, 0);
+            }
+
+            foreach (string distinctWord in distinctWords)
+            {
+                dictionary[distinctWord] += CalculateTFIDF(distinctWord);
+            }
+
+            _tfIdf = dictionary;
+        }
         private double IDF(string word)
         {
             return Math.Log(Articles.Count / (double)DocumentFrequency[word]);
